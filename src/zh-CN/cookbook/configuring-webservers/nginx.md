@@ -1,8 +1,7 @@
-# Configuring web servers: Nginx
+# 配置 Web 服务器：Nginx
 
-To use [Nginx](https://wiki.nginx.org/), install PHP as an [FPM SAPI](https://secure.php.net/install.fpm).
-Use the following Nginx configuration, replacing `path/to/app/public` with the actual path for
-`app/public` and `mysite.test` with the actual hostname to serve.
+要使用 [Nginx](https://wiki.nginx.org/)，请将 PHP 安装为 [FPM SAPI](https://secure.php.net/install.fpm)。
+使用以下 Nginx 配置，将 `path/to/app/public` 替换为 `app/public` 的实际路径，将 `mysite.test` 替换为要提供服务的实际主机名。
 
 ```nginx
 server {
@@ -50,11 +49,8 @@ server {
 }
 ```
 
-When you use this configuration, also set `cgi.fix_pathinfo=0` in the `php.ini` file
-to avoid many unnecessary system `stat()` calls.
+使用此配置时，还要在 `php.ini` 文件中设置 `cgi.fix_pathinfo=0`，以避免许多不必要的系统 `stat()` 调用。
 
-Also, note that when running an HTTPS server, you need to add `fastcgi_param HTTPS on;` so that Yii
-can detect if a connection is secure.
+另外，请注意，在运行 HTTPS 服务器时，您需要添加 `fastcgi_param HTTPS on;`，以便 Yii 可以检测连接是否安全。
 
-In the above, note the usage of `fastcgi_param APP_ENV`. Since the Yii3 application template is using environment variables,
-this is a possible place to set them. In production environment remember to set `APP_ENV` to `prod`.
+在上面的配置中，请注意 `fastcgi_param APP_ENV` 的使用。由于 Yii3 应用程序模板使用环境变量，这是设置它们的一个可能位置。在生产环境中，请记住将 `APP_ENV` 设置为 `prod`。

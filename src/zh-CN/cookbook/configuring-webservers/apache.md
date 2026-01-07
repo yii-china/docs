@@ -1,7 +1,6 @@
-# Configuring web servers: Apache
+# 配置 Web 服务器：Apache
 
-Use the following configuration in Apache's `httpd.conf` file or within a virtual host configuration. Note that you
-should replace `path/to/app/public` with the actual path for `app/public`.
+在 Apache 的 `httpd.conf` 文件或虚拟主机配置中使用以下配置。请注意，您应该将 `path/to/app/public` 替换为 `app/public` 的实际路径。
 
 ```apache
 # Set document root to be "app/public"
@@ -27,8 +26,7 @@ DocumentRoot "path/to/app/public"
 </Directory>
 ```
 
-In case you have `AllowOverride All` you can add `.htaccess` file with the following configuration instead of
-using `httpd.conf`:
+如果您有 `AllowOverride All`，您可以添加 `.htaccess` 文件并使用以下配置，而不是使用 `httpd.conf`：
 
 ```apache
 # use mod_rewrite for pretty URL support
@@ -49,5 +47,4 @@ SetEnv APP_ENV dev
 # ...other settings...
 ```
 
-In the above, note the usage of `SetEnv`. Since the Yii3 application template is using environment variables, this is a possible
-place to set them. In production environment remember to set `APP_ENV` to `prod`.
+在上面的配置中，请注意 `SetEnv` 的使用。由于 Yii3 应用程序模板使用环境变量，这是设置它们的一个可能位置。在生产环境中，请记住将 `APP_ENV` 设置为 `prod`。
