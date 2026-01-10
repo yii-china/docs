@@ -1,82 +1,72 @@
-# 014 — Documentation
+# 014 — 文档
 
-Documentation is one of the most important parts of Yii.
+文档是 Yii 最重要的部分之一。
 
-## Package documentation
+## 包文档
 
-Documentation for a package could either be in `README.md` or `docs/{language}/{type}` where `{language}` is
-a language code and `{type}` could be "guide," "cookbook" or something else.
-Usually `docs` is there if the package usage or configuration isn't trivial or there's a need for translation.
+包的文档可以放在 `README.md` 中，也可以放在 `docs/{language}/{type}` 中，其中 `{language}` 是语言代码，`{type}` 可以是"guide"、"cookbook"或其他内容。
+通常，如果包的使用或配置不是很简单，或者需要翻译，就会有 `docs` 目录。
 
-Some indicators that it's time to create `docs`:
+以下是创建 `docs` 的一些指标：
 
-1. There is a need for translation.
-2. Many topics exist. Each of these is big by itself.
+1. 需要翻译。
+2. 存在许多主题。每个主题本身都很大。
 
-If the total length of readme is less than about 200 lines, it's fine to keep documentation in the readme.
+如果 readme 的总长度少于大约 200 行，则将文档保留在 readme 中是可以的。
 
-## Definitive guide
+## 权威指南
 
-The definitive guide, [yiisoft/docs/guide](https://github.com/yiisoft/docs/tree/master/guide/en)
-aims at covering usage of packages as a whole framework. Unlike package documentation, it isn't
-focused on a single package but is covering certain use-cases.
+权威指南 [yiisoft/docs/guide](https://github.com/yiisoft/docs/tree/master/guide/en) 旨在涵盖作为整个框架的包的使用。与包文档不同，它不专注于单个包，而是涵盖某些用例。
 
-The guide should follow [Micosoft style guide](https://learn.microsoft.com/en-us/style-guide/welcome/).
+该指南应遵循 [Microsoft 风格指南](https://learn.microsoft.com/en-us/style-guide/welcome/)。
 
-### Translation
+### 翻译
 
-The definitive guide uses [po4a](https://github.com/mquinson/po4a) in GitHub Action for translations.  
+权威指南在 GitHub Action 中使用 [po4a](https://github.com/mquinson/po4a) 进行翻译。
 
-Translation algorithm:
+翻译算法：
 
-- Install an application for working with `.po` translation files. For example, [Poedit](https://poedit.net/), [Lokalize](https://apps.kde.org/ru/lokalize/),
-  [Gtranslator](https://wiki.gnome.org/Apps/Gtranslator) or another.
-- Find file what you want to translate in `_translations/guide/{lang}`. Note that if the source file
-  is in a subfolder, the subfolder name is appended to the file name and separated by an underscore, for example,
-  for translating `guide/en/concept/aliases.md` file find `_translations/guide/{lang}/concept_aliases.md.po` file.
-- Open the file with the `.po` extension in `Poedit` from the folder with the desired localization,
-  for example `_translations/guide/ru/intro_what-is-yii.md.po`. If there is no localization yet,
-  create an issue.
-- Translate necessary strings and push the changes
-- Open a pull request to the main repository
+- 安装用于处理 `.po` 翻译文件的应用程序。例如，[Poedit](https://poedit.net/)、[Lokalize](https://apps.kde.org/ru/lokalize/)、[Gtranslator](https://wiki.gnome.org/Apps/Gtranslator) 或其他。
+- 在 `_translations/guide/{lang}` 中找到要翻译的文件。请注意，如果源文件在子文件夹中，则子文件夹名称会附加到文件名并用下划线分隔，例如，要翻译 `guide/en/concept/aliases.md` 文件，请找到 `_translations/guide/{lang}/concept_aliases.md.po` 文件。
+- 在 `Poedit` 中从所需本地化的文件夹中打开扩展名为 `.po` 的文件，例如 `_translations/guide/ru/intro_what-is-yii.md.po`。如果还没有本地化，请创建一个问题。
+- 翻译必要的字符串并推送更改
+- 向主仓库打开拉取请求
 
 > [!CAUTION]
-> Do not change the translation in files in `/guide/{lang}` manually.
+> 不要手动更改 `/guide/{lang}` 中文件的翻译。
 
-If you have changed English and want to update translations:
+如果您更改了英文并想要更新翻译：
 
-- Open a pull request to the main repository
-- Pull updated branch after successful completion of workflow `Update docs translation` in GitHub Action
-- Update translation in `.po` files by `Poedit`
-- Push changes
+- 向主仓库打开拉取请求
+- 在 GitHub Action 中成功完成工作流 `Update docs translation` 后拉取更新的分支
+- 通过 `Poedit` 更新 `.po` 文件中的翻译
+- 推送更改
 
-## Blocks
+## 块
 
-Blocks are in the [GitHub Alerts format](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts):
+块采用 [GitHub Alerts 格式](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)：
 
-```
+\`\`\`
 > [!NOTE]
-> Useful information that users should know, even when skimming content.
+> 用户应该知道的有用信息，即使在浏览内容时也是如此。
 
 > [!TIP]
-> Helpful advice for doing things better or more easily.
+> 有助于更好或更轻松地做事的建议。
 
 > [!IMPORTANT]
-> Key information users need to know to achieve their goal.
+> 用户需要知道的关键信息以实现其目标。
 
 > [!WARNING]
-> Urgent info that needs immediate user attention to avoid problems.
+> 需要立即引起用户注意以避免问题的紧急信息。
 
 > [!CAUTION]
-> Advises about risks or negative outcomes of certain actions.
-```
+> 关于某些操作的风险或负面结果的建议。
+\`\`\`
 
-When translating documentation, these Block indicators should not be translated.
-Keeps them intact as they are and only translate the block content.
-For translating the label for the block, each guide translation should have a `blocktypes.json` file
-containing the translations. The following shows an example for German:
+翻译文档时，不应翻译这些块指示符。保持它们原样，只翻译块内容。
+要翻译块的标签，每个指南翻译都应该有一个包含翻译的 `blocktypes.json` 文件。以下显示了德语的示例：
 
-```json
+\`\`\`json
 {
     "Note": "Hinweis",
     "Tip": "Tipp",
@@ -84,13 +74,13 @@ containing the translations. The following shows an example for German:
     "Warning": "Achtung",
     "Caution": "Vorsicht"
 }
-```
+\`\`\`
 
 ## PHPDoc
 
-PHPDoc mustn't be added if it doesn't add anything to what it describes. The following is a bad example:
+如果 PHPDoc 没有为其描述的内容添加任何内容，则不得添加。以下是一个不好的例子：
 
-```php
+\`\`\`php
 use Psr\Log\LoggerInterface;
 
 /**
@@ -120,22 +110,22 @@ final class MyService extends MyServiceBase
         return parent::doit();    
     }
 }
-``` 
+\`\`\` 
 
-PHPDoc, if present, should describe the purpose of the element it's added for.
+PHPDoc（如果存在）应该描述它所添加的元素的目的。
 
-## Readme checklist
+## Readme 检查清单
 
-Each package readme should be placed into `README.md` and contain the following:
+每个包的 readme 应该放在 `README.md` 中并包含以下内容：
 
-- [ ] Logo.
-- [ ] Short description of the package. What does it do?
-- [ ] Quality badges (build, code coverage).
-- [ ] Screenshot (if applicable).
-- [ ] Requirements.
-- [ ] Installation. Usually `composer require`.
-- [ ] Getting started. One or two common usage examples are demonstrated.
-- [ ] Configuration.
-- [ ] Contributing. It should contain a link to guidelines.
-- [ ] Running tests.
-- [ ] License.
+- [ ] Logo。
+- [ ] 包的简短描述。它做什么？
+- [ ] 质量徽章（构建、代码覆盖率）。
+- [ ] 截图（如果适用）。
+- [ ] 要求。
+- [ ] 安装。通常是 `composer require`。
+- [ ] 入门。演示一两个常见的使用示例。
+- [ ] 配置。
+- [ ] 贡献。它应该包含指南的链接。
+- [ ] 运行测试。
+- [ ] 许可证。
