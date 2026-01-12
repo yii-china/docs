@@ -1,60 +1,42 @@
-# Performance tuning
+# 性能调优
 
-There are many factors affecting the performance of your application. Some are environmental, some are related 
-to your code, while some others are related to Yii itself. In this section, we will count most of these
-factors and explain how you can improve your application performance by adjusting these factors.
+影响应用性能的因素有很多。有些是环境因素，有些与您的代码相关，还有一些与 Yii 本身相关。在本节中，我们将列举大部分这些因素，并解释如何通过调整这些因素来提高应用性能。
 
+## 优化 PHP 环境 <span id="optimizing-php"></span>
 
-## Optimizing your PHP Environment <span id="optimizing-php"></span>
+良好配置的 PHP 环境很重要。要获得最佳性能：
 
-A well-configured PHP environment is important. To get maximum performance:
+- 使用最新的稳定 PHP 版本。PHP 的主要版本可能会带来显著的性能改进。
+- 使用 [Opcache](https://secure.php.net/opcache) 启用字节码缓存。
+  字节码缓存避免了为每个传入请求解析和包含 PHP 脚本所花费的时间。
+- [调优 `realpath()` 缓存](https://github.com/samdark/realpath_cache_tuner)。
+- 确保生产环境中没有安装 [XDebug](https://xdebug.org/)。
+- 尝试 [PHP 7 预加载](https://wiki.php.net/rfc/preload)。
 
-- Use the latest stable PHP version. Major releases of PHP may bring significant performance improvements.
-- Enable bytecode caching with [Opcache](https://secure.php.net/opcache). 
-  Bytecode caching avoids the time spent on parsing and including PHP scripts for every incoming request.
-- [Tune `realpath()` cache](https://github.com/samdark/realpath_cache_tuner).
-- Make sure [XDebug](https://xdebug.org/) isn't installed in the production environment.
-- Try [PHP 7 preloading](https://wiki.php.net/rfc/preload).
+## 优化代码 <span id="optimizing-code"></span>
 
-## Optimizing your code <span id="optimizing-code"></span>
+除了环境配置之外，还有一些代码级别的优化可以提高应用的性能：
 
-Beyond environment configuration, there are code-level optimizations that can improve your application's performance:
+- 注意[算法复杂度](https://en.wikipedia.org/wiki/Time_complexity)。
+  特别要注意 `foreach` 嵌套在 `foreach` 循环中的情况，但也要注意在循环中使用[重量级 PHP 函数](https://stackoverflow.com/questions/2473989/list-of-big-o-for-php-functions)。
+- [加速 array_merge()](https://www.exakat.io/speeding-up-array_merge/)
+- [将 foreach() 移到方法内部](https://www.exakat.io/move-that-foreach-inside-the-method/)
+- [数组、类和匿名类的内存使用](https://www.exakat.io/array-classes-and-anonymous-memory-usage/)
+- 使用带前导反斜杠的完全限定函数名来优化 opcache 性能。
+  当从命名空间内调用[某些全局函数](https://github.com/php/php-src/blob/944b6b6bbd6f05ad905f5f4ad07445792bee4027/Zend/zend_compile.c#L4291-L4353)时，PHP 首先在当前命名空间中搜索，然后才回退到全局命名空间。
+  添加前导反斜杠（例如，使用 `\count()` 而不是 `count()`）告诉 PHP 直接使用全局函数，避免命名空间查找并提高 opcache 效率。这种优化最好使用 [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) 等工具配合 `native_function_invocation` 规则自动实现。
 
-- Look out for [algorithm complexity](https://en.wikipedia.org/wiki/Time_complexity).
-  Especially give attention to `foreach` within `foreach` loops but look out for using
-  [heavy PHP functions](https://stackoverflow.com/questions/2473989/list-of-big-o-for-php-functions) in loops as well.
-- [Speeding up array_merge()](https://www.exakat.io/speeding-up-array_merge/)
-- [Move that foreach() inside the method](https://www.exakat.io/move-that-foreach-inside-the-method/)
-- [Array, classes and anonymous classes memory usage](https://www.exakat.io/array-classes-and-anonymous-memory-usage/)
-- Use fully qualified function names with leading backslashes to optimize opcache performance.
-  When calling [certain global functions](https://github.com/php/php-src/blob/944b6b6bbd6f05ad905f5f4ad07445792bee4027/Zend/zend_compile.c#L4291-L4353) 
-  from within a namespace, PHP first searches in the current namespace before falling back to the global namespace.
-  Adding a leading backslash (e.g., `\count()` instead of `count()`) tells PHP to directly use the global function,
-  avoiding the namespace lookup and improving opcache efficiency. This optimization is best implemented automatically
-  using tools like [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) with the `native_function_invocation` rule.
+只有当相关代码频繁执行时，上述优化才会给您带来显著的性能提升。这通常是大循环或批处理的情况。
 
-The above optimizations would give you a significant performance boost only if the code in question is executed
-frequently. That is usually the case for big loops or batch processing.
+## 使用缓存技术 <span id="using-caching-techniques"></span>
 
-## Using caching techniques <span id="using-caching-techniques"></span>
+您可以使用各种缓存技术来显著提高应用的性能。例如，如果您的应用允许用户输入 Markdown 格式的文本，您可以考虑缓存解析后的 Markdown 内容，以避免在每个请求中重复解析相同的 Markdown 文本。请参阅[缓存](../caching/overview.md)部分以了解 Yii 提供的缓存支持。
 
-You can use various caching techniques to significantly improve the performance of your application. For example,
-if your application allows users to enter text in Markdown format, you may consider caching the parsed Markdown
-content to avoid parsing the same Markdown text repeatedly in every request. Please refer to 
-the [Caching](../caching/overview.md) section to learn about the caching support provided by Yii.
+## 优化会话存储 <span id="optimizing-session-storage"></span>
 
+默认情况下，会话数据存储在文件中。该实现从打开会话到通过 `$session->close()` 关闭会话或请求结束时锁定文件。当会话文件被锁定时，所有其他试图使用相同会话的请求都会被阻塞。这是在等待初始请求释放会话文件。这对于开发和可能的小型项目来说是可以的。但是当涉及到处理大量并发请求时，最好使用更复杂的存储，例如 Redis。
 
-## Optimizing session storage <span id="optimizing-session-storage"></span>
-
-By default, session data is stored in files. The implementation is locking a file from opening a session to the point it's
-closed either by `$session->close()` or at the end of request.
-While the session file is locked, all other requests that are trying to use the same session are blocked. That's waiting for the
-initial request to release a session file. This is fine for development and probably small projects. But when it comes 
-to handling massive concurrent requests, it's better to use more sophisticated storage, such as Redis.
-
-It could be done either by [configuring PHP via php.ini](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-redis-server-as-a-session-handler-for-php-on-ubuntu-14-04)
-or [implementing SessionHandlerInterface](https://www.sitepoint.com/saving-php-sessions-in-redis/) and configuring
-session service as follows:
+这可以通过[通过 php.ini 配置 PHP](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-redis-server-as-a-session-handler-for-php-on-ubuntu-14-04) 或[实现 SessionHandlerInterface](https://www.sitepoint.com/saving-php-sessions-in-redis/) 并按如下方式配置会话服务来完成：
 
 ```php
 \Yiisoft\Session\SessionInterface::class => [
@@ -63,85 +45,61 @@ session service as follows:
 ],
 ```
 
-## Optimizing databases <span id="optimizing-databases"></span>
+## 优化数据库 <span id="optimizing-databases"></span>
 
-Executing DB queries and fetching data from databases are often the main performance bottleneck in
-a Web application. Although using [data caching](../caching/data.md) techniques may ease the performance hit,
-it doesn't fully solve the problem. When the database has enormous amounts of data and the cached data are invalid, 
-fetching the latest data could be prohibitively expensive without a proper database and query design.
+执行数据库查询和从数据库获取数据通常是 Web 应用中的主要性能瓶颈。虽然使用[数据缓存](../caching/data.md)技术可以缓解性能影响，但它并不能完全解决问题。当数据库有大量数据且缓存的数据无效时，如果没有适当的数据库和查询设计，获取最新数据可能会非常昂贵。
 
-A general technique to improve the performance of DB queries is to create indices for table columns that
-need to be filtered by. For example, if you need to look for a user record by `username`, you should create an index
-on `username`. Note that while indexing can make SELECT queries much faster, it will slow down INSERT, UPDATE and DELETE queries.
+提高数据库查询性能的一般技术是为需要过滤的表列创建索引。例如，如果您需要通过 `username` 查找用户记录，您应该在 `username` 上创建索引。请注意，虽然索引可以使 SELECT 查询快得多，但它会减慢 INSERT、UPDATE 和 DELETE 查询。
 
-For complex DB queries, it's recommended that you create database views to save the query parsing and preparation time.
+对于复杂的数据库查询，建议您创建数据库视图以节省查询解析和准备时间。
 
-Last but not least, use `LIMIT` in your `SELECT` queries. This avoids fetching an overwhelming amount of data from the database
-and exhausting the memory allocated to PHP.
+最后但同样重要的是，在 `SELECT` 查询中使用 `LIMIT`。这避免了从数据库中获取大量数据并耗尽分配给 PHP 的内存。
 
+## 优化 Composer 自动加载器 <span id="optimizing-autoloader"></span>
 
-## Optimizing composer autoloader <span id="optimizing-autoloader"></span>
-
-Because Composer autoloader is used to include most third-party class files, you should consider optimizing it
-by executing the following command:
+因为 Composer 自动加载器用于包含大多数第三方类文件，所以您应该考虑通过执行以下命令来优化它：
 
 ```
 composer dumpautoload -o
 ```
 
-Additionally, you may consider using
-[authoritative class maps](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-a-authoritative-class-maps)
-and [APCu cache](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-b-apcu-cache).
-Note that both optimizations may or may not be suitable for your particular case.
+此外，您可以考虑使用[权威类映射](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-a-authoritative-class-maps)和 [APCu 缓存](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-b-apcu-cache)。请注意，这两种优化可能适合也可能不适合您的特定情况。
 
+## 离线处理数据 <span id="processing-data-offline"></span>
 
-## Processing data offline <span id="processing-data-offline"></span>
+当请求涉及一些资源密集型操作时，您应该考虑在离线模式下执行这些操作的方法，而不让用户等待它们完成。
 
-When a request involves some resource-intensive operations, you should think of ways to perform those operations
-in offline mode without having users wait for them to finish.
+有两种离线处理数据的方法：拉取和推送。
 
-There are two methods to process data offline: pull and push. 
+在拉取方法中，每当请求涉及一些复杂操作时，您创建一个任务并将其保存在持久存储中，例如数据库。然后使用单独的进程（例如 cron 作业）来拉取任务并处理它们。这种方法实现起来很简单，但它有一些缺点。例如，任务进程需要定期从任务存储中拉取。如果拉取频率太低，任务可能会被延迟处理，但如果频率太高，它会引入高开销。
 
-In the pull method, whenever a request involves some complex operation, you create a task and save it in a persistent 
-storage, such as a database. You then use a separate process (such as a cron job) to pull the tasks and process them.
-This method is straightforward to implement, but it has some drawbacks. For example, the task process needs to periodically pull
-from the task storage. If the pull frequency is too low, the tasks may be processed with great delay, but if the frequency
-is too high, it will introduce high overhead.
+在推送方法中，您将使用消息队列（例如 RabbitMQ、ActiveMQ、Amazon SQS 等）来管理任务。每当新任务放入队列时，它将启动或通知任务处理进程以触发任务处理。
 
-In the push method, you would use a message queue (e.g., RabbitMQ, ActiveMQ, Amazon SQS, etc.) to manage the tasks. 
-Whenever a new task is put in the queue, it will initiate or notify the task handling process to trigger the task processing.
+## 使用预加载
 
-## Using preloading
+从 PHP 7.4.0 开始，PHP 可以配置为在引擎启动时将脚本预加载到 opcache 中。您可以在[文档](https://www.php.net/manual/en/opcache.preloading.php)和相应的 [RFC](https://wiki.php.net/rfc/preload) 中阅读更多信息。
 
-As of PHP 7.4.0, PHP can be configured to preload scripts into the opcache when the engine starts.
-You can read more in the [documentation](https://www.php.net/manual/en/opcache.preloading.php)
-and the corresponding [RFC](https://wiki.php.net/rfc/preload).
+请注意，性能和内存之间的最佳权衡可能因应用而异。"预加载所有内容"可能是最简单的策略，但不一定是最好的策略。
 
-Note that the optimal tradeoff between performance and memory may vary with the application. "Preload everything"
-may be the easiest strategy, but not necessarily the best strategy.
+例如，我们对简单的 [yiisoft/app](https://github.com/yiisoft/app) 应用模板进行了基准测试。在没有预加载和预加载整个 composer 类映射的情况下。
 
-For example, we conducted a simple [yiisoft/app](https://github.com/yiisoft/app) application template benchmark.
-Without preloading and with preloading of the entire composer class map.
+### 预加载基准测试
 
-### Preloading benchmarks
+应用模板基准测试包括在引导脚本中配置类以注入依赖项。
 
-The application template benchmark includes configuring classes to injected dependencies in the bootstrap script.
-
-For both variants, [ApacheBench](https://httpd.apache.org/docs/2.4/programs/ab.html)
-was used with the following run parameters:
+对于两种变体，都使用了 [ApacheBench](https://httpd.apache.org/docs/2.4/programs/ab.html)，运行参数如下：
 
 ```shell
 ab -n 1000 -c 10 -t 10
 ```
 
-Also, the debug mode was disabled. And an optimized autoloader of the [Composer](https://getcomposer.org) was used, 
-and development dependencies weren't used:
+此外，调试模式已禁用。并且使用了 [Composer](https://getcomposer.org) 的优化自动加载器，并且没有使用开发依赖项：
 
 ```shell
 composer install --optimize-autoloader --no-dev
 ```
 
-With preloading enabled, the entire composer class map (825 files) was used:
+启用预加载后，使用了整个 composer 类映射（825 个文件）：
 
 ```php
 $files = require 'vendor/composer/autoload_classmap.php';
@@ -151,21 +109,18 @@ foreach (array_unique($files) as $file) {
 }
 ```
 
-#### Test results
+#### 测试结果
 
-| Benchmark          | Preloaded files | Opcache memory used | Per request memory used | Time per request | Requests per second |
+| 基准测试 | 预加载文件数 | Opcache 内存使用 | 每个请求内存使用 | 每个请求时间 | 每秒请求数 |
 |--------------------|-----------------|---------------------|-------------------------|------------------|---------------------|
-| Without preloading | 0               | 12.32 mb            | 1.71 mb                 | 27.63 ms         | 36.55 rq/s          |
-| With preloading    | 825             | 17.86 mb            | 1.82 mb                 | 26.21 ms         | 38.42 rq/s          |
+| 没有预加载 | 0               | 12.32 mb            | 1.71 mb                 | 27.63 ms         | 36.55 rq/s          |
+| 有预加载    | 825             | 17.86 mb            | 1.82 mb                 | 26.21 ms         | 38.42 rq/s          |
 
-As you can see, the test results aren't much different, since this is just a clean application template
-that contains a few classes. More discussion of preloading, including benchmarks,
-can be found in the [composer's issue](https://github.com/composer/composer/issues/7777).
+如您所见，测试结果没有太大差异，因为这只是一个包含少数类的干净应用模板。有关预加载的更多讨论（包括基准测试）可以在 [composer 的 issue](https://github.com/composer/composer/issues/7777) 中找到。
 
-## Performance profiling <span id="performance-profiling"></span>
+## 性能分析 <span id="performance-profiling"></span>
 
-You should profile your code to find out the performance bottlenecks and take appropriate measures accordingly.
-The following profiling tools may be useful:
+您应该分析代码以找出性能瓶颈并采取相应的适当措施。以下分析工具可能有用：
 
 <!-- - [Yii debug toolbar and debugger](https://github.com/yiisoft/yii2-debug/blob/master/docs/guide/README.md) -->
 

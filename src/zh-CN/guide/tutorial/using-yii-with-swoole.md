@@ -1,29 +1,26 @@
-# Using Yii with Swoole
+# 在 Swoole 中使用 Yii
 
-[Swoole](https://www.swoole.co.uk/) is a PHP network framework distributed as a PECL extension. It allows you built-in async,
-multiple threads I/O modules. Developers can use sync or async, coroutine API to write the applications.
+[Swoole](https://www.swoole.co.uk/) 是一个作为 PECL 扩展分发的 PHP 网络框架。它允许您使用内置的异步、多线程 I/O 模块。开发人员可以使用同步或异步、协程 API 来编写应用。
 
-In the context of Yii, it allows running request handlers as workers. Each worker may handle multiple requests.
-Such an operation mode is often called [event loop](using-with-event-loop.md) and allows not re-initializing a framework
-for each request that improves performance significantly. 
+在 Yii 的上下文中，它允许将请求处理程序作为工作进程运行。每个工作进程可以处理多个请求。这种操作模式通常称为[事件循环](using-with-event-loop.md)，允许不为每个请求重新初始化框架，从而显著提高性能。
 
-## Installation
+## 安装
 
-Swoole works on Linux and macOS and can be installed via pecl:
+Swoole 可在 Linux 和 macOS 上运行，可以通过 pecl 安装：
 
 ```bash
 pecl install swoole
 ```
 
-## Putting up a server
+## 搭建服务器
 
-Since Swoole doesn't have built-in PSR-7 support, you need a package fixing so:
+由于 Swoole 没有内置的 PSR-7 支持，您需要一个修复包：
 
 ```php
 composer require ilexn/swoole-convent-psr7
 ```
 
-Create an entry script, `server.php`:
+创建一个入口脚本 `server.php`：
 
 ```php
 <?php
@@ -102,7 +99,7 @@ $server->on('request', static function (Swoole\Http\Request $request, Swoole\Htt
     } finally {
         $application->afterEmit($psr7Response ?? null);
         $container->get(\Yiisoft\Di\StateResetter::class)->reset();
-        $container = $requestContainer;    
+        $container = $requestContainer;
     }
 });
 
@@ -113,14 +110,14 @@ $server->on('shutdown', static function (Swoole\Http\Server $server) use ($appli
 $server->start();
 ```
 
-## Starting a server
+## 启动服务器
 
-To start a server, execute the following command:
+要启动服务器，执行以下命令：
 
 ```
 php server.php
 ```
 
-## On scope
+## 关于作用域
 
-A scope is shared, so at each iteration of the event loop every service that depends on state should be reset.
+作用域是共享的，因此在事件循环的每次迭代中，每个依赖于状态的服务都应该被重置。

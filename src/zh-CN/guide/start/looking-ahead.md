@@ -1,7 +1,4 @@
-# Looking ahead
+# 展望未来
 
-If you've read through the entire "Getting Started" chapter, you have now created a complete Yii application.
-In the process, you've learned how to implement some commonly necessary features, such as getting data from users
-via an HTML form, fetching data from a database, and displaying data in a paginated fashion. You've also learned how
-to use [Gii](gii.md) to generate code automatically. Using Gii for code generation turns the bulk of your Web development
-process into a task as simple as just filling out some forms.
+如果您已经阅读了整个"入门"章节，您现在已经创建了一个完整的 Yii 应用程序。
+在此过程中，您学习了如何实现一些常见的必要功能，例如通过 HTML 表单从用户获取数据、从数据库获取数据以及以分页方式显示数据。您还学习了如何使用 [Gii](gii.md) 自动生成代码。使用 Gii 进行代码生成将您的 Web 开发过程的大部分工作转变为像填写一些表单一样简单的任务。

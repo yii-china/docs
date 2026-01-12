@@ -1,77 +1,57 @@
-# Domain
+# 领域
 
-The Domain or domain model is what makes the project unique. With requirements and terminology of the problem being solved
-in mind (the problem context), you build an abstraction that consists of entities, their relationships, and logic that
-operates these entities. To focus on the complex part of the problem, domain is, ideally, separated from
- the infrastructure part of the system (that's how to save data into a database, how to form HTTP response, etc.).
+领域或领域模型是使项目独特的部分。考虑到要解决的问题的需求和术语（问题上下文），您构建一个由实体、它们的关系以及操作这些实体的逻辑组成的抽象。为了专注于问题的复杂部分，理想情况下，领域与系统的基础设施部分（即如何将数据保存到数据库、如何形成 HTTP 响应等）分离。
 
 > [!NOTE]
-> Such isolation is suitable for complex systems. If your project domain is basically create/read/update/delete
-> for a set of records with not much complex logic, it makes no sense to apply a complex solution to a simple problem.
-> The individual concepts of domain design below could be applied separately, so make sure to check these even if your
-> project isn't that complicated. 
+> 这种隔离适用于复杂系统。如果您的项目领域基本上是对一组记录进行创建/读取/更新/删除操作，没有太多复杂的逻辑，那么将复杂的解决方案应用于简单的问题是没有意义的。
+> 下面的领域设计的各个概念可以单独应用，因此即使您的项目不是那么复杂，也要确保检查这些概念。
 
-## Bounded context
+## 限界上下文
 
-It's nearly impossible to build a model that solves multiple problems that aren't too complicated by itself. Therefore,
-it's a good practice to divide the domain into several use-cases and have a separate model for each use-case.
-Such separated models are called "bounded contexts."
+构建一个解决多个本身并不太复杂的问题的模型几乎是不可能的。因此，将领域划分为几个用例并为每个用例建立单独的模型是一个好的实践。这些分离的模型称为"限界上下文"。
 
-## Building blocks
+## 构建块
 
-There are various building blocks that are typically used when describing domain models. It isn't mandatory to use
-them all.
+在描述领域模型时通常使用各种构建块。不是必须全部使用它们。
 
-### Entity
+### 实体
 
-Entity is a uniquely identifiable object such as user, product, payment, etc. When comparing them, you're checking ID,
-not the attribute values. If there are two objects with different attributes but the same ID, they're considered
-being the same thing.
+实体是一个可唯一标识的对象，例如用户、产品、支付等。在比较它们时，您检查的是 ID，而不是属性值。如果有两个对象具有不同的属性但具有相同的 ID，则它们被认为是同一个东西。
 
-### Value object
+### 值对象
 
-Value object describes an object by its characteristics. For example, a price that consists of value and currency. When
-comparing such objects, you're checking actual values. If they match, an object is considered to be the same.
+值对象通过其特征来描述对象。例如，由值和货币组成的价格。在比较此类对象时，您检查的是实际值。如果它们匹配，则认为对象是相同的。
 
-### Aggregate
+### 聚合
 
-Aggregate is a set of domain objects such as entities and value objects and additional data that could be treated as
-a single unit. It usually represents a compound object from a domain model such as shop order or HR person dossier.
+聚合是一组领域对象（例如实体和值对象）以及可以作为单个单元处理的附加数据。它通常表示领域模型中的复合对象，例如商店订单或 HR 人员档案。
 
-One of the components of an aggregate is called a root. The root identifies an aggregate as a whole and should be used
-to access it.
+聚合的组件之一称为根。根将聚合作为一个整体进行标识，应该用于访问它。
 
-### Domain event
+### 领域事件
 
-An aggregate, while processed, may raise events. For example, when order is confirmed, `OrderConfirmed` event would
-be risen so other parts of the system may react on these.
+聚合在处理时可能会引发事件。例如，当订单被确认时，会引发 `OrderConfirmed` 事件，以便系统的其他部分可以对此做出反应。
 
-### Data transfer object
+### 数据传输对象
 
-Data transfer object or DTO is an object whose only purpose is to hold data as it is. It's commonly used to pass data
-between different services.
+数据传输对象或 DTO 是一个对象，其唯一目的是按原样保存数据。它通常用于在不同服务之间传递数据。
 
-### Service
+### 服务
 
-Service is a class that contains a standalone operation within the context of your domain model. See "[service 
-components](service.md)".
+服务是一个类，包含领域模型上下文中的独立操作。请参阅"[服务组件](service.md)"。
 
-### Repository
+### 仓储
 
-The repository task is to abstract away how domain objects are obtained. These are usually separated into two parts: an interface
-that stays in the domain layer and an implementation that's situated in the infrastructure layer. In such a way, domain doesn't
-care how data is obtained and saved and may be focused around the complicated business logic instead.
+仓储的任务是抽象出如何获取领域对象。这些通常分为两部分：一个接口留在领域层，一个实现位于基础设施层。通过这种方式，领域不关心数据如何获取和保存，可以专注于复杂的业务逻辑。
 
-Repository is usually implemented as a service.
+仓储通常作为服务实现。
 
-### Instantiating building blocks
+### 实例化构建块
 
-Entity, value object, aggregate, and domain events aren't services and shouldn't be instantiated through DI container.
-Using `new` is the way to go with these.
+实体、值对象、聚合和领域事件不是服务，不应该通过 DI 容器实例化。使用 `new` 是处理这些的方式。
 
-## References
+## 参考资料
 
 - [BoundedContext by Martin Fowler](https://martinfowler.com/bliki/BoundedContext.html)
 - [ValueObject by Martin Fowler](https://martinfowler.com/bliki/ValueObject.html)
 - [Aggregate by Marting Fowler](https://martinfowler.com/bliki/DDD_Aggregate.html)
-

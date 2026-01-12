@@ -1,28 +1,28 @@
-# Immutability
+# 不可变性
 
-Immutability means an object's state cannot change after it has been created. 
-Instead of modifying an instance, you create a new instance with the desired changes. 
-This approach is common for value objects such as Money, IDs, and DTOs. It helps to avoid accidental side effects:
-methods cannot silently change shared state, which makes code easier to reason about.
+不可变性意味着对象的状态在创建后无法更改。
+你不是修改实例，而是创建一个具有所需更改的新实例。
+这种方法对于值对象（如 Money、ID 和 DTO）很常见。它有助于避免意外的副作用：
+方法不能静默地更改共享状态，这使得代码更容易理解。
 
-## Mutable pitfalls (what we avoid)
+## 可变性的陷阱（我们要避免的）
 
 ```php
-// A shared base query built once and reused:
+// 构建一次并重用的共享基础查询：
 $base = Post::find()->where(['status' => Post::STATUS_PUBLISHED]);
 
-// Somewhere deep in the code we only need one post:
-$one = $base->limit(1)->one(); // mutates the underlying builder (sticky limit!)
+// 在代码深处我们只需要一篇文章：
+$one = $base->limit(1)->one(); // 改变了底层构建器（粘性限制！）
 
-// Later we reuse the same $base expecting a full list:
+// 稍后我们重用相同的 $base 期望获得完整列表：
 $list = $base->orderBy(['created_at' => SORT_DESC])->all();
-// Oops: still limited to 1 because the previous limit(1) modified $base.
+// 糟糕：仍然限制为 1，因为之前的 limit(1) 修改了 $base。
 ```
 
-## Creating an immutable object in PHP
+## 在 PHP 中创建不可变对象
 
-There is no direct way to modify an instance, but you can use clone to create a new instance with the desired changes.
-That is what `with*` methods do.
+没有直接修改实例的方法，但你可以使用 clone 创建具有所需更改的新实例。
+这就是 `with*` 方法所做的。
 
 ```php
 final class Money
@@ -35,19 +35,19 @@ final class Money
         $this->validateCurrency($currency);
     }
     
-    private function validateAmount(string $amount) 
+    private function validateAmount(string $amount)
     {
      if ($amount < 0) {
-            throw new InvalidArgumentException('Amount must be positive.');
+            throw new InvalidArgumentException('金额必须为正数。');
         }
     }
     
     private function validateCurrency(string $currency)
     {
         if (!in_array($currency, ['USD', 'EUR'])) {
-            throw new InvalidArgumentException('Invalid currency. Only USD and EUR are supported.');
+            throw new InvalidArgumentException('无效的货币。仅支持 USD 和 EUR。');
         }
-    } 
+    }
 
     public function withAmount(int $amount): self
     {
@@ -88,7 +88,7 @@ final class Money
     public function add(self $money): self
     {
         if ($money->currency !== $this->currency) {
-            throw new InvalidArgumentException('Currency mismatch. Cannot add money of different currency.');
+            throw new InvalidArgumentException('货币不匹配。无法添加不同货币的金额。');
         }
         return $this->withAmount($this->amount + $money->amount);
     }
@@ -96,23 +96,20 @@ final class Money
 
 $price = new Money(1000, 'USD');
 $discounted = $price->withAmount(800);
-// $price is still 1000 USD, $discounted is 800 USD
+// $price 仍然是 1000 USD，$discounted 是 800 USD
 ```
 
-- We mark the class `final` to prevent subclass mutations; alternatively, design for extension carefully.
-- Validate in the constructor and `with*` methods so every instance is always valid.
+- 我们将类标记为 `final` 以防止子类突变；或者，仔细设计以支持扩展。
+- 在构造函数和 `with*` 方法中进行验证，以便每个实例始终有效。
 
 > [!TIP]
-> If you define a simple DTO, you can use modern PHP `readonly` and leave properties `public`. The `readonly` keyword
-> would ensure that the properties cannot be modified after the object is created.
+> 如果你定义一个简单的 DTO，可以使用现代 PHP 的 `readonly` 并将属性保留为 `public`。`readonly` 关键字将确保在创建对象后无法修改属性。
 
-## Using clone (and why it is inexpensive)
+## 使用 clone（以及为什么它不昂贵）
 
-PHP's clone performs a shallow copy of the object. For immutable value objects that contain only scalars 
-or other immutable objects, shallow cloning is enough and fast. In modern PHP, cloning small value objects is 
-inexpensive in both time and memory.
+PHP 的 clone 执行对象的浅拷贝。对于仅包含标量或其他不可变对象的不可变值对象，浅克隆就足够了且速度很快。在现代 PHP 中，克隆小型值对象在时间和内存方面都不昂贵。
 
-If your object holds mutable sub-objects that must also be copied, implement `__clone` to deep-clone them:
+如果你的对象持有也必须复制的可变子对象，请实现 `__clone` 来深度克隆它们：
 
 ```php
 final class Order
@@ -128,8 +125,8 @@ final class Order
 
     public function __clone(): void
     {
-        // Money is immutable in our example, so a deep clone is not required.
-        // If it were mutable, you could do: $this->total = clone $this->total;
+        // 在我们的示例中 Money 是不可变的，因此不需要深度克隆。
+        // 如果它是可变的，你可以这样做：$this->total = clone $this->total;
     }
 
     public function withTotal(Money $total): self
@@ -141,11 +138,9 @@ final class Order
 }
 ```
 
-## Usage style
+## 使用风格
 
-- Build a value object once and pass it around. If you need a change, use a `with*` method that returns a new instance.
-- Prefer scalar/immutable fields inside immutable objects; if a field can mutate, isolate it and deep-clone in `__clone`
-  when needed.
+- 构建一次值对象并传递它。如果你需要更改，使用返回新实例的 `with*` 方法。
+- 在不可变对象内部优先使用标量/不可变字段；如果字段可以改变，在需要时将其隔离并在 `__clone` 中深度克隆。
 
-Immutability aligns well with Yii's preference for predictable, side-effect-free code and makes services, caching,
-and configuration more robust.
+不可变性与 Yii 对可预测、无副作用代码的偏好非常契合，并使服务、缓存和配置更加健壮。

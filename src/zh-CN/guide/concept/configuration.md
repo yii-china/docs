@@ -1,24 +1,20 @@
-# Configuration
+# 配置
 
-There are many ways to configure your application. We will focus on concepts used in
-the [default project template](https://github.com/yiisoft/app).
+有多种方式可以配置你的应用程序。我们将重点介绍[默认项目模板](https://github.com/yiisoft/app)中使用的概念。
 
-Yii3 configs are part of the application. You can change many aspects of how the application works by editing
-configuration under `config/`.
+Yii3 配置是应用程序的一部分。你可以通过编辑 `config/` 目录下的配置来改变应用程序工作方式的许多方面。
 
-## Config plugin
+## 配置插件
 
-In the application template [yiisoft/config](https://github.com/yiisoft/config) is used. Since writing all application
-configurations from scratch is a tedious process, many packages offer default configs, and the plugin helps with
-copying these into the application.
+应用程序模板使用了 [yiisoft/config](https://github.com/yiisoft/config)。由于从头编写所有应用程序配置是一个繁琐的过程，许多包提供了默认配置，该插件帮助将这些配置复制到应用程序中。
 
-To offer default configs, `composer.json` of the package has to have `config-plugin` section.
-When installing or updating packages with Composer, the plugin reads `config-plugin` sections for each dependency,
-copies files themselves to application `config/packages/` if they don't yet exist and writes a merge plan to
-`config/packages/merge_plan.php`. The merge plan defines how to merge the configs into a single big array
-ready to be passed to [DI container](di-container.md).
+要提供默认配置，包的 `composer.json` 必须包含 `config-plugin` 部分。
+当使用 Composer 安装或更新包时，插件会读取每个依赖项的 `config-plugin` 部分，
+如果文件尚不存在，则将文件本身复制到应用程序的 `config/packages/` 目录，并将合并计划写入
+`config/packages/merge_plan.php`。合并计划定义了如何将配置合并为一个大数组，
+以便传递给 [DI 容器](di-container.md)。
 
-Take a look at what's in the "yiisoft/app" `composer.json` by default:
+看看 "yiisoft/app" 的 `composer.json` 中默认包含的内容：
 
 ```json
 "config-plugin-options": {
@@ -60,25 +56,24 @@ Take a look at what's in the "yiisoft/app" `composer.json` by default:
 },
 ```
 
-There are many named configs defined. For each name, there is a configuration.
+这里定义了许多命名配置。每个名称对应一个配置。
 
-A string means that the plugin takes config as is and merges it with same-named configs from packages you require.
-That happens if these packages have `config-plugin` in their `composer.json`. 
+字符串表示插件按原样获取配置，并将其与你所需的包中的同名配置合并。
+如果这些包的 `composer.json` 中有 `config-plugin`，就会发生这种情况。
 
-The array means that the plugin will merge many files in the order they're specified.
+数组表示插件将按指定的顺序合并多个文件。
 
-`?` at the beginning of the file path indicated that the file may be absent. In this case, it's skipped.
+文件路径开头的 `?` 表示该文件可能不存在。在这种情况下，它会被跳过。
 
-`$` at the beginning of the name means a reference to another named config.
+名称开头的 `$` 表示对另一个命名配置的引用。
 
-`params` is a bit special because it's reserved for application parameters. These are automatically available
-as `$params` in all other configuration files.
+`params` 有点特殊，因为它是为应用程序参数保留的。这些参数会自动作为 `$params` 在所有其他配置文件中可用。
 
-You can learn more about config plugin features [from its documentation](https://github.com/yiisoft/config/blob/master/README.md).
+你可以[从其文档](https://github.com/yiisoft/config/blob/master/README.md)中了解更多关于配置插件功能的信息。
 
-## Config files
+## 配置文件
 
-Now, as you know how the plugin assembles configs, look at `config` directory:
+现在，你已经知道插件如何组装配置了，看看 `config` 目录：
 
 ```
 common/
@@ -103,12 +98,10 @@ providers-web.php
 routes.php
 ```
 
-### Container configuration
+### 容器配置
 
-The application consists of a set of services registered in a [dependency container](di-container.md). The config files
-that responsible for direct dependency container configuration are under `common/`, `console/` and `web/` directories.
-We use `web/` for config specific to web application and `console/` for config specific to console commands. Both web and
-console are sharing configuration under `common/`.
+应用程序由一组在[依赖容器](di-container.md)中注册的服务组成。负责直接依赖容器配置的配置文件位于 `common/`、`console/` 和 `web/` 目录下。
+我们使用 `web/` 存放 Web 应用程序特定的配置，使用 `console/` 存放控制台命令特定的配置。Web 和控制台都共享 `common/` 下的配置。
 
 ```php
 <?php
@@ -128,23 +121,19 @@ return [
 ];
 ```
 
-Config plugin passes special `$params` variable to all config files.
-The code passes its values to the service.
+配置插件会将特殊的 `$params` 变量传递给所有配置文件。
+代码将其值传递给服务。
 
-The guide on ["Dependency injection and container"](di-container.md) describes
-the configuration format and the idea of dependency injection in detail.
+["依赖注入和容器"](di-container.md)指南详细描述了配置格式和依赖注入的思想。
 
-For convenience, there is a naming convention for custom string keys:
+为了方便，自定义字符串键有一个命名约定：
 
-1. Prefix package name such as `yiisoft/cache-file/custom-definition`.
-2. In case configuration are for the application itself, skip package prefix, such as `custom-definition`.
+1. 添加包名前缀，例如 `yiisoft/cache-file/custom-definition`。
+2. 如果配置是针对应用程序本身的，则跳过包前缀，例如 `custom-definition`。
 
-### Service providers
+### 服务提供者
 
-As an alternative to registering dependencies directly, you can use service providers. Basically, these are classes that
-given parameters are configuring and registering services within the container. Similar to three dependency configuration
-files described, there are three configs for specifying service providers: `providers-console.php` for console
-commands, `providers-web.php` for web application and `providers.php` for both:
+作为直接注册依赖项的替代方案，你可以使用服务提供者。基本上，这些是根据给定参数在容器中配置和注册服务的类。与前面描述的三个依赖配置文件类似，有三个用于指定服务提供者的配置：`providers-console.php` 用于控制台命令，`providers-web.php` 用于 Web 应用程序，`providers.php` 用于两者：
 
 ```php
 /* @var array $params */
@@ -166,14 +155,11 @@ return [
     // ...
 ```
 
-In this config keys are provider names. By convention these are `vendor/package-name/provider-name`. Values are provider
-class names. These classes could be either created in the project itself or provided by a package.
+在此配置中，键是提供者名称。按照约定，这些是 `vendor/package-name/provider-name`。值是提供者类名。这些类可以在项目本身中创建，也可以由包提供。
 
-If you need to configure some options for a service, similar to direct container configuration, take values
-from `$params` and pass them to providers.
+如果你需要为服务配置一些选项，类似于直接容器配置，从 `$params` 中获取值并将它们传递给提供者。
 
-Provider should implement a single method, `public function register(Container $container): void`. In this method you
-need to add a service to container using `set()` method. Below is a provider for a cache service:
+提供者应该实现一个方法：`public function register(Container $container): void`。在此方法中，你需要使用 `set()` 方法将服务添加到容器。以下是缓存服务的提供者：
 
 ```php
 use Psr\Container\ContainerInterface;
@@ -207,9 +193,9 @@ final readonly class CacheProvider extends ServiceProvider
 }
 ```
 
-### Routes
+### 路由
 
-You can configure how web application responds to certain URLs in `config/routes.php`:
+你可以在 `config/routes.php` 中配置 Web 应用程序如何响应特定的 URL：
 
 ```php
 use App\Controller\SiteController;
@@ -218,16 +204,16 @@ use Yiisoft\Router\Route;
 return [
     Route::get('/')->action([SiteController::class, 'index'])->name('site/index')
 ];
-``` 
+```
 
-Read more about it in ["Routes"](../runtime/routing.md).
+在["路由"](../runtime/routing.md)中阅读更多相关内容。
 
-### Events
+### 事件
 
-Many services emit certain events that you can attach to.
-You could do that via three config files: `events-web.php` for web application events,
-`events-console.php` for console events and `events.php` for both.
-The configuration is an array where keys are event names and values are an array of handlers:
+许多服务会发出你可以附加的特定事件。
+你可以通过三个配置文件来实现：`events-web.php` 用于 Web 应用程序事件，
+`events-console.php` 用于控制台事件，`events.php` 用于两者。
+配置是一个数组，其中键是事件名称，值是处理程序数组：
 
 ```php
 return [
@@ -258,19 +244,17 @@ return [
 ];
 ```
 
-Read more about it in ["Events"](events.md).
+在["事件"](events.md)中阅读更多相关内容。
 
 
-### Parameters
+### 参数
 
-Parameters, `config/params.php` store configuration values that are used in other config files to configuring services
-and service providers.
+参数文件 `config/params.php` 存储用于在其他配置文件中配置服务和服务提供者的配置值。
 
 > [!TIP]
-> Don't use parameters, constants or environment variables directly in your application, configure
-> services instead.
+> 不要在应用程序中直接使用参数、常量或环境变量，而应配置服务。
 
-Default application `params.php` looks like the following:
+默认应用程序的 `params.php` 如下所示：
 
 ```php
 <?php
@@ -323,21 +307,18 @@ return [
 ];
 ```
 
-For convenience, there is a naming convention about parameters:
+为了方便，参数有一个命名约定：
 
-1. Group parameters package name such as `yiisoft/cache-file`.
-2. In case parameters are for the application itself, as in `app`, skip package prefix.
-3. In case there are many services in the package, such as `file-target` and `file-rotator` in `yiisoft/log-target-file`
-   package, group parameters by service name.
-4. Use `enabled` as parameter name to be able to disable or enable a service, such as `yiisoft/yii-debug`.
+1. 按包名分组参数，例如 `yiisoft/cache-file`。
+2. 如果参数是针对应用程序本身的，如 `app`，则跳过包前缀。
+3. 如果包中有多个服务，例如 `yiisoft/log-target-file` 包中的 `file-target` 和 `file-rotator`，
+   则按服务名称分组参数。
+4. 使用 `enabled` 作为参数名称，以便能够禁用或启用服务，例如 `yiisoft/yii-debug`。
 
-### Package configs
+### 包配置
 
-Config plugin described copy default package configurations to `packages/` directory. Once copied you
-own the configs, so you can adjust these as you like. `yiisoft/` in the default template stands for package vendor. Since
-only `yiisoft` packages are in template, there's a single directory. `merge_plan.php` is used in runtime to get the order
-on how configs are merged.
-Note that for config keys there should be a single source of truth.
-One config can't override values of another config.
+前面描述的配置插件会将默认包配置复制到 `packages/` 目录。一旦复制，你就拥有了这些配置，因此可以根据需要调整它们。默认模板中的 `yiisoft/` 代表包供应商。由于模板中只有 `yiisoft` 包，所以只有一个目录。`merge_plan.php` 在运行时用于获取配置合并的顺序。
+请注意，对于配置键，应该有一个单一的真实来源。
+一个配置不能覆盖另一个配置的值。
 
-`dist.lock` is used by the plugin to keep track of changes and display diff between current config and example one. 
+`dist.lock` 由插件用于跟踪更改并显示当前配置与示例配置之间的差异。

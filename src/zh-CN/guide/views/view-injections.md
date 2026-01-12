@@ -1,19 +1,16 @@
-# View injections
+# 视图注入
 
-The view injections are designed to provide a standardized way to pass parameters to the common layer
-of views in an application. It allows developers to manage the data that will be available
-across various views, ensuring flexibility and reusability of code.
+视图注入旨在提供一种标准化的方式，将参数传递到应用程序中视图的公共层。它允许开发者管理将在各个视图中可用的数据，确保代码的灵活性和可重用性。
 
-The view injections could be used if you require `yiisoft/yii-view-renderer` package:
-
+如果你需要使用视图注入，需要安装 `yiisoft/yii-view-renderer` 包：
 
 ```sh
 composer require yiisoft/yii-view-renderer
 ```
 
-## Configuration
+## 配置
 
-In config `params.php`:
+在配置文件 `params.php` 中：
 
 
 ```php
@@ -27,15 +24,14 @@ In config `params.php`:
     ],
 ```
 
-## New injections
+## 新建注入
 
-Start by defining a class that will implement the `Yiisoft\Yii\View\Renderer\CommonParametersInjectionInterface`. This
-class will be responsible for providing the parameters you want to inject into your view templates and layouts.
+首先定义一个实现 `Yiisoft\Yii\View\Renderer\CommonParametersInjectionInterface` 接口的类。该类将负责提供你想要注入到视图模板和布局中的参数。
 
 ```php
 class MyCustomParametersInjection implements Yiisoft\Yii\View\Renderer\CommonParametersInjectionInterface
 {
-    // Class properties and methods will go here
+    // 类属性和方法将在这里定义
 
     public function __construct(UserService $userService)
     {
@@ -45,7 +41,7 @@ class MyCustomParametersInjection implements Yiisoft\Yii\View\Renderer\CommonPar
     public function getCommonParameters(): array
     {
         return [
-            'siteName' => 'My Awesome Site',
+            'siteName' => '我的超棒网站',
             'currentYear' => date('Y'),
             'user' => $this->userService->getCurrentUser(),
         ];
@@ -53,7 +49,7 @@ class MyCustomParametersInjection implements Yiisoft\Yii\View\Renderer\CommonPar
 }
 ```
 
-Add your new Injection to `params.php`:
+将你的新注入添加到 `params.php` 中：
 
 ```php
 'yiisoft/yii-view' => [
@@ -64,13 +60,11 @@ Add your new Injection to `params.php`:
     ],
 ```
 
-## Using Separate Injections for Different Layouts
+## 为不同布局使用单独的注入
 
-If your application has multiple layouts, you can create separate parameter injections for each layout. This approach
-allows you to tailor the parameters injected into each layout according to its specific needs, enhancing the flexibility
-and maintainability of your application.
+如果你的应用程序有多个布局，你可以为每个布局创建单独的参数注入。这种方法允许你根据每个布局的特定需求定制注入的参数，从而增强应用程序的灵活性和可维护性。
 
-Create your custom ViewInjection for a specific layout:
+为特定布局创建自定义 ViewInjection：
 
 ```php
 readonly final class CartViewInjection implements CommonParametersInjectionInterface
@@ -88,7 +82,7 @@ readonly final class CartViewInjection implements CommonParametersInjectionInter
 }
 ```
 
-Add your new injection to `params.php` under specific layout name. In the following example, it's `@layout/cart`:
+将你的新注入添加到 `params.php` 中的特定布局名称下。在以下示例中，它是 `@layout/cart`：
 
 ```php
 'yiisoft/yii-view' => [
@@ -100,7 +94,7 @@ Add your new injection to `params.php` under specific layout name. In the follow
                     ->get(Cart::class);
 
                 return new LayoutSpecificInjections(
-                    '@layout/cart', // layout name for injection
+                    '@layout/cart', // 用于注入的布局名称
 
                     new CartViewInjection($cart)
                 );

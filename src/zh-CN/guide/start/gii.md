@@ -1,1 +1,1 @@
-# Generating code with Gii
+# 使用 Gii 生成代码

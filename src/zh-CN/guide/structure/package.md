@@ -1,54 +1,39 @@
-# Packages
+# 包
 
-Reusable code could be released as [a Composer package](https://getcomposer.org/doc/05-repositories.md#package).
-It could be an infrastructure library, a module representing one of the application contexts or, basically, any
-reusable code.
+可重用的代码可以作为 [Composer 包](https://getcomposer.org/doc/05-repositories.md#package)发布。它可以是基础设施库、代表应用程序上下文之一的模块，或者基本上任何可重用的代码。
 
-## Using packages <span id="using-packages"></span>
+## 使用包 <span id="using-packages"></span>
 
-By default, Composer installs packages registered on [Packagist](https://packagist.org/) — the biggest repository
-for open source PHP packages. You can look for packages on Packagist. You may also
-[create your own repository](https://getcomposer.org/doc/05-repositories.md#repository) and configure Composer
-to use it. This is useful if you're developing private packages that you want to share within your projects only.
+默认情况下，Composer 安装在 [Packagist](https://packagist.org/) 上注册的包——这是最大的开源 PHP 包仓库。你可以在 Packagist 上查找包。你也可以[创建自己的仓库](https://getcomposer.org/doc/05-repositories.md#repository)并配置 Composer 使用它。如果你正在开发只想在项目内部共享的私有包，这会很有用。
 
-Packages installed by Composer are stored in the `vendor` directory of your project. 
-Because the Composer is a dependency manager, when it installs a package, it will also install all its dependent packages.
+Composer 安装的包存储在项目的 `vendor` 目录中。因为 Composer 是一个依赖管理器，当它安装一个包时，它也会安装该包的所有依赖包。
 
 > [!WARNING]
-> `vendor` directory of your application should never be modified.
+> 应用程序的 `vendor` 目录永远不应该被修改。
 
-A package could be installed with the following command:
+可以使用以下命令安装包：
 
 ```
 composer install vendor-name/package-name
 ```
 
-After it's done, Composer modifies `composer.json` and `composer.lock`. The former defines what packages to install,
-and their version constraints the latter stores a snapshot of exact versions actually installed.
+完成后，Composer 会修改 `composer.json` 和 `composer.lock`。前者定义要安装的包及其版本约束，后者存储实际安装的确切版本的快照。
 
-Classes from the package will be available immediately via [autoloading](../concept/autoloading.md).
+包中的类将通过[自动加载](../concept/autoloading.md)立即可用。
 
-## Creating packages <span id="creating-packages"></span>
+## 创建包 <span id="creating-packages"></span>
 
+当你觉得需要与其他人分享你的优秀代码时，可以考虑创建一个包。包可以包含你喜欢的任何代码，例如辅助类、小部件、服务、中间件、整个模块等。
 
-You may consider creating a package when you feel the need to share with other people your great code.
-A package can contain any code you like, such as a helper class, a widget, a service, middleware, the whole module, etc.
+以下是你可以遵循的基本步骤。
 
-Below are the basic steps you may follow.
-
-1. Create a project for your package and host it on a VCS repository, such as [GitHub.com](https://github.com).
-   The development and maintenance work for the package should be done on this repository.
-2. Under the root directory of the project, create a file named `composer.json` as required by Composer. Please
-   refer to the next subsection for more details.
-3. Register your package with a Composer repository, such as [Packagist](https://packagist.org/), so that
-   other users can find and install your package using Composer.
-
+1. 为你的包创建一个项目并将其托管在 VCS 仓库上，例如 [GitHub.com](https://github.com)。包的开发和维护工作应该在这个仓库上完成。
+2. 在项目的根目录下，按照 Composer 的要求创建一个名为 `composer.json` 的文件。有关更多详细信息，请参阅下一小节。
+3. 在 Composer 仓库（例如 [Packagist](https://packagist.org/)）中注册你的包，以便其他用户可以使用 Composer 找到并安装你的包。
 
 ### `composer.json` <span id="composer-json"></span>
 
-Each Composer package must have a `composer.json` file in its root directory. The file contains the metadata about
-the package. You may find the complete specification about this file in the [Composer Manual](https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup).
-The following example shows the `composer.json` file for the `yiisoft/yii-widgets` package:
+每个 Composer 包必须在其根目录中有一个 `composer.json` 文件。该文件包含有关包的元数据。你可以在 [Composer 手册](https://getcomposer.org/doc/01-basic-usage.md#composer-json-project-setup)中找到有关此文件的完整规范。以下示例显示了 `yiisoft/yii-widgets` 包的 `composer.json` 文件：
 
 ```json
 {
@@ -125,29 +110,22 @@ The following example shows the `composer.json` file for the `yiisoft/yii-widget
 ```
 
 
-#### Package Name <span id="package-name"></span>
+#### 包名称 <span id="package-name"></span>
 
-Each Composer package should have a package name which uniquely identifies the package among all others.
-The format of package names is `vendorName/projectName`. For example, in the package name `yiisoft/queue`,
-the vendor name, and the project name are `yiisoft` and `queue`, respectively.
+每个 Composer 包都应该有一个包名称，该名称在所有其他包中唯一标识该包。包名称的格式是 `vendorName/projectName`。例如，在包名称 `yiisoft/queue` 中，供应商名称和项目名称分别是 `yiisoft` 和 `queue`。
 
 > [!WARNING]
-> Don't use `yiisoft` as your vendor name as it's reserved for use by the Yii itself.
+> 不要使用 `yiisoft` 作为你的供应商名称，因为它是为 Yii 本身保留的。
 
-We recommend you prefix `yii-` to the project name for packages that aren't able to work as general PHP
-packages and require Yii application. This will allow users to more easily tell whether a package is Yii specific.
+我们建议你为无法作为通用 PHP 包工作且需要 Yii 应用程序的包在项目名称前加上 `yii-` 前缀。这将使用户更容易判断包是否是 Yii 特定的。
 
+#### 依赖项 <span id="dependencies"></span>
 
-#### Dependencies <span id="dependencies"></span>
+如果你的扩展依赖于其他包，你应该在 `composer.json` 的 `require` 部分列出它们。确保你还为每个依赖包列出适当的版本约束（例如 `^1.0`、`@stable`）。当你的扩展以稳定版本发布时，使用稳定的依赖项。
 
-If your extension depends on other packages, you should list them in `require` section of `composer.json`.
-Make sure you also list appropriate version constraints (e.g. `^1.0`, `@stable`) for each dependent package.
-Use stable dependencies when your extension is released in a stable version.
+#### 类自动加载 <span id="class-autoloading"></span>
 
-#### Class Autoloading <span id="class-autoloading"></span>
-
-In order for your classes to be autoloaded, you should specify the `autoload` entry in the `composer.json` file,
-like shown below:
+为了让你的类能够自动加载，你应该在 `composer.json` 文件中指定 `autoload` 条目，如下所示：
 
 ```json
 {
@@ -161,50 +139,32 @@ like shown below:
 }
 ```
 
-You may list one or multiple root namespaces and their corresponding file paths.
+你可以列出一个或多个根命名空间及其对应的文件路径。
 
-### Recommended Practices <span id="recommended-practices"></span>
+### 推荐实践 <span id="recommended-practices"></span>
 
-Because packages are meant to be used by other people, you often need to make an extra effort during development.
-Below, we introduce some common and recommended practices in creating high-quality extensions.
+因为包是供其他人使用的，所以在开发过程中你通常需要付出额外的努力。下面，我们介绍一些创建高质量扩展的常见和推荐实践。
 
+#### 测试 <span id="testing"></span>
 
-#### Testing <span id="testing"></span>
+你希望你的包能够完美运行，而不会给其他人带来问题。为了达到这个目标，你应该在向公众发布之前测试你的扩展。
 
-You want your package to run flawlessly without bringing problems to other people. To reach this goal, you should
-test your extension before releasing it to the public.
+建议你创建各种测试用例来覆盖你的扩展代码，而不是依赖手动测试。每次在发布包的新版本之前，你可以运行这些测试用例以确保一切正常。有关更多详细信息，请参阅[测试](../testing/overview.md)部分。
 
-It's recommended that you create various test cases to cover your extension code rather than relying on manual tests.
-Each time before you release a new version of your package, you may run these test cases to make sure
-everything is in good shape. For more details, please refer to the [Testing](../testing/overview.md) section.
+#### 版本控制 <span id="versioning"></span>
 
+你应该为扩展的每个版本提供一个版本号（例如 `1.0.1`）。我们建议你在确定应该使用什么版本号时遵循[语义化版本控制](https://semver.org)实践。
 
-#### Versioning <span id="versioning"></span>
+#### 发布 <span id="releasing"></span>
 
-You should give each release of your extension a version number (e.g. `1.0.1`). We recommend you follow the
-[semantic versioning](https://semver.org) practice when determining what version numbers should be used.
+要让其他人知道你的包，你需要将其发布到公众。
 
+如果这是你第一次发布包，你应该在 Composer 仓库（例如 [Packagist](https://packagist.org/)）中注册它。之后，你所需要做的就是在扩展的 VCS 仓库上创建一个发布标签（例如 `v1.0.1`）并通知 Composer 仓库有关新版本的信息。然后人们就能够通过 Composer 仓库找到新版本并安装或更新包。
 
-#### Releasing <span id="releasing"></span>
+在发布包时，除了代码文件之外，你还应该考虑包含以下内容以帮助其他人了解和使用你的扩展：
 
-To let other people know about your package, you need to release it to the public.
-
-If it's the first time you're releasing a package, you should register it in a Composer repository, such as
-[Packagist](https://packagist.org/).
-After that, all you need to do is create a release tag (for example, `v1.0.1`)
-on the VCS repository of your extension and notify the Composer repository about the new release. People will
-then be able to find the new release and install or update the package through the Composer repository.
-
-In the release of your package, in addition to code files, you should also consider including the following to
-help other people learn about and use your extension:
-
-* A readme file in the package root directory: it describes what your extension does and how to install and use it.
-  We recommend you write it in [Markdown](https://daringfireball.net/projects/markdown/) format and name the file
-  as `README.md`.
-* A changelog file in the package root directory: it lists what changes are made in each release. The file
-  may be written in Markdown format and named as `CHANGELOG.md`.
-* An upgrade file in the package root directory: it gives the instructions on how to upgrade from older releases
-  of the extension. The file may be written in Markdown format and named as `UPGRADE.md`.
-* Tutorials, demos, screenshots, etc.: these are needed if your extension provides many features that can't be
-  fully covered in the readme file.
-* API documentation: your code should be well-documented to allow other people to more easily read and understand it.
+* 包根目录中的自述文件：它描述了你的扩展的功能以及如何安装和使用它。我们建议你使用 [Markdown](https://daringfireball.net/projects/markdown/) 格式编写并将文件命名为 `README.md`。
+* 包根目录中的更新日志文件：它列出了每个版本中所做的更改。该文件可以使用 Markdown 格式编写并命名为 `CHANGELOG.md`。
+* 包根目录中的升级文件：它提供了如何从扩展的旧版本升级的说明。该文件可以使用 Markdown 格式编写并命名为 `UPGRADE.md`。
+* 教程、演示、截图等：如果你的扩展提供了许多无法在自述文件中完全涵盖的功能，则需要这些内容。
+* API 文档：你的代码应该有良好的文档，以便其他人更容易阅读和理解它。

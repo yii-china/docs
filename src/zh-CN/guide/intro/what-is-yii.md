@@ -1,59 +1,52 @@
-# What is Yii
+# 什么是 Yii
 
-Yii is a high-performance, package-based PHP framework for developing modern applications.
-The name Yii (pronounced `Yee` or `[ji:]`) means "simple and evolutionary" in Chinese.
-You can also think about it as an acronym for **Yes It Is**!
+Yii 是一个高性能、基于包的 PHP 框架，用于开发现代应用程序。
+Yii 这个名字（发音为 `Yee` 或 `[ji:]`）在中文中意为"简单且进化"。
+你也可以把它看作是 **Yes It Is** 的首字母缩写！
 
-## What's Yii best for
+## Yii 最适合什么
 
-Yii is a generic Web programming framework.
-You can use it for developing all kinds of Web applications using PHP.
-Because of its architecture and sophisticated caching support,
-it's especially suitable for developing large-scale applications such as portals, content management systems,
-e-commerce, REST APIs, etc.
+Yii 是一个通用的 Web 编程框架。
+你可以使用它来开发使用 PHP 的各种 Web 应用程序。
+由于其架构和复杂的缓存支持，
+它特别适合开发大型应用程序，如门户网站、内容管理系统、电子商务、REST API 等。
 
-## How does Yii compare with other frameworks?
+## Yii 与其他框架相比如何？
 
-If you're already familiar with another framework, you may appreciate knowing how Yii compares:
+如果你已经熟悉另一个框架，你可能会想知道 Yii 的比较：
 
-- Yii takes the [philosophy of being practical and helpful](../../internals/001-yii-values.md) achieving:
-  - Performance in both development and execution.
-  - Convenient customizable defaults.
-  - Practice-orientation.
-  - Simplicity.
-  - Explicitness.
-  - Consistency.
+- Yii 采用[实用和有帮助的理念](../../internals/001-yii-values.md)，实现：
+  - 开发和执行的性能。
+  - 方便的可自定义默认值。
+  - 面向实践。
+  - 简单性。
+  - 明确性。
+  - 一致性。
   
-  Yii will never try to over-design things mainly to follow some design patterns.
-- Yii extensively uses PSR interfaces with the ability to reuse what PHP community created and even
-  replace core implementations if needed.
-- Yii is both a set of libraries and a full-stack framework providing many proven and ready-to-use features:
-  caching, logging, template engine, data abstraction, development tools, code generation, and more.
-- Yii is extensible. You can customize or replace every piece of the core's code. You can also
-  take advantage of Yii's solid architecture to use or develop redistributable packages.
-- High performance is always a primary goal of Yii.
+  Yii 永远不会为了遵循某些设计模式而过度设计。
+- Yii 广泛使用 PSR 接口，能够重用 PHP 社区创建的内容，甚至在需要时替换核心实现。
+- Yii 既是一组库，也是一个全栈框架，提供许多经过验证且可立即使用的功能：
+  缓存、日志记录、模板引擎、数据抽象、开发工具、代码生成等。
+- Yii 是可扩展的。你可以自定义或替换核心代码的每一部分。你还可以
+  利用 Yii 的坚实架构来使用或开发可重新分发的包。
+- 高性能始终是 Yii 的首要目标。
 
-Yii is backed up by a [strong core developer team](https://www.yiiframework.com/team/) financially backed from an
-[OpenCollective foundation](https://opencollective.com/yiisoft), as well as a large community of professionals constantly
-contributing to Yii's development. The Yii developer team keeps a close eye on the latest Web development trends and
-on the best practices and features found in other frameworks and projects. The most relevant best practices and features
-found elsewhere are incorporated into the core framework and exposed via simple and elegant interfaces.
+Yii 得到了[强大的核心开发团队](https://www.yiiframework.com/team/)的支持，该团队得到了 [OpenCollective 基金会](https://opencollective.com/yiisoft)的财务支持，以及一个不断为 Yii 开发做出贡献的大型专业社区。Yii 开发团队密切关注最新的 Web 开发趋势以及其他框架和项目中发现的最佳实践和功能。在其他地方发现的最相关的最佳实践和功能被纳入核心框架，并通过简单优雅的接口公开。
 
 
-## Yii versions
+## Yii 版本
 
-Yii currently has three major versions available: 1.1, 2.0, and 3.0.
+Yii 目前有三个主要版本：1.1、2.0 和 3.0。
 
-- Version 1.1 is the old generation and is now in the feature freeze bugfix mode.
-- Version 2.0 is a current stable version in the feature freeze bugfix mode.
-- Version 3.0 is the current version in development. This guide is mainly about version 3.
+- 版本 1.1 是旧一代，现在处于功能冻结错误修复模式。
+- 版本 2.0 是当前稳定版本，处于功能冻结错误修复模式。
+- 版本 3.0 是当前正在开发的版本。本指南主要介绍版本 3。
 
 
-## Requirements and prerequisites
+## 要求和先决条件
 
-Yii3 requires PHP 8.2 or above, but some packages work with older PHP, such as PHP 7.4.
+Yii3 需要 PHP 8.2 或更高版本，但某些包可以使用较旧的 PHP，例如 PHP 7.4。
 
-Using Yii requires basic knowledge of object-oriented programming (OOP), as Yii is a pure OOP-based framework.
-Yii3 also makes use of the latest PHP features, such as type declarations and generators. Understanding these
-concepts will help you pick up Yii3 faster.
+使用 Yii 需要面向对象编程（OOP）的基本知识，因为 Yii 是一个纯粹基于 OOP 的框架。
+Yii3 还使用了最新的 PHP 功能，例如类型声明和生成器。理解这些概念将帮助你更快地掌握 Yii3。
 

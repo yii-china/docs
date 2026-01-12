@@ -1,6 +1,6 @@
-# Request
+# 请求
 
-HTTP request has a method, URI, a set of headers and a body:
+HTTP 请求有一个方法、URI、一组头和一个主体：
 
 ```
 POST /contact HTTP/1.1
@@ -14,13 +14,13 @@ Accept-Encoding: gzip, deflate
 }
 ```
 
-The method is `POST`, URI is `/contact`.
-Extra headers are specifying host, preferred language and encoding.
-The body could be anything.
-In this case, it's a JSON payload. 
+方法是 `POST`，URI 是 `/contact`。
+额外的头指定了主机、首选语言和编码。
+主体可以是任何内容。
+在这种情况下，它是一个 JSON 负载。
 
-Yii uses [PSR-7 `ServerRequest`](https://www.php-fig.org/psr/psr-7/) as request representation.
-The object is available in controller actions and other types of middleware:
+Yii 使用 [PSR-7 `ServerRequest`](https://www.php-fig.org/psr/psr-7/) 作为请求表示。
+该对象在控制器操作和其他类型的中间件中可用：
 
 ```php
 public function view(ServerRequestInterface $request): ResponseInterface
@@ -29,15 +29,15 @@ public function view(ServerRequestInterface $request): ResponseInterface
 }
 ```
 
-## Method
+## 方法
 
-The method could be obtained from a request object:
+可以从请求对象获取方法：
 
 ```php
 $method = $request->getMethod();
 ```
 
-Usually it's one of the: 
+通常是以下之一：
 
 - GET
 - POST
@@ -47,34 +47,34 @@ Usually it's one of the:
 - PATCH
 - OPTIONS
 
-In case you want to make sure the request method is of a certain type, there is a special class with method names:
+如果你想确保请求方法是特定类型，有一个带有方法名称的特殊类：
 
 ```php
 use Yiisoft\Http\Method;
 
 if ($request->getMethod() === Method::POST) {
-    // method is POST
+    // 方法是 POST
 }
-``` 
+```
 
 ## URI
 
-A URI has:
+URI 包含：
 
-- Scheme (`http`, `https`)
-- Host (`yiiframework.com`)
-- Port (`80`, `443`)
-- Path (`/posts/1`)
-- Query string (`page=1&sort=+id`)
-- Fragment (`#anchor`)
+- 方案（`http`、`https`）
+- 主机（`yiiframework.com`）
+- 端口（`80`、`443`）
+- 路径（`/posts/1`）
+- 查询字符串（`page=1&sort=+id`）
+- 片段（`#anchor`）
 
-You can obtain `UriInterface` from request like the following:
+你可以像下面这样从请求中获取 `UriInterface`：
 
 ```php
 $uri = $request->getUri();
-``` 
+```
 
-Then you can get various details from its methods:
+然后你可以从其方法中获取各种详细信息：
 
 - `getScheme()`
 - `getAuthority()`
@@ -85,9 +85,9 @@ Then you can get various details from its methods:
 - `getQuery()`
 - `getFragment()`
   
-## Headers
+## 头
 
-There are various methods to inspect request headers. To get all headers as an array:
+有各种方法来检查请求头。要将所有头作为数组获取：
 
 ```php
 $headers = $request->getHeaders();
@@ -96,24 +96,24 @@ foreach ($headers as $name => $values) {
 }
 ```
 
-To get a single header:
+要获取单个头：
 
 ```php
 $values = $request->getHeader('Accept-Encoding');
 ```
 
 
-Also, you could get value as a comma-separated string instead of an array.
-That's especially handy if a header has a single value:
+此外，你可以将值作为逗号分隔的字符串而不是数组获取。
+如果头只有一个值，这特别方便：
 
 ```php
 if ($request->getHeaderLine('X-Requested-With') === 'XMLHttpRequest') {
-    // This is an AJAX request made with jQuery.
-    // Note that header presence and name may vary depending on the library used. 
+    // 这是使用 jQuery 发出的 AJAX 请求。
+    // 请注意，头的存在和名称可能因使用的库而异。
 }
 ```
 
-To check if a header is present in the request:
+要检查请求中是否存在头：
 
 ```php
 if ($request->hasHeader('Accept-Encoding')) {
@@ -121,23 +121,23 @@ if ($request->hasHeader('Accept-Encoding')) {
 }
 ```
 
-## Body
+## 主体
 
-There are two methods to get body contents. The first is getting the body as it is without parsing:
+有两种方法可以获取主体内容。第一种是在不解析的情况下按原样获取主体：
 
 ```php
 $body = $request->getBody();
 ```
 
-The `$body` would be an instance of `Psr\Http\Message\StreamInterface`.
+`$body` 将是 `Psr\Http\Message\StreamInterface` 的实例。
 
-Also, you could get a parsed body:
+此外，你可以获取解析后的主体：
 
 ```php
 $bodyParameters = $request->getParsedBody();
 ```
 
-Parsing depends on PSR-7 implementation and may require middleware for custom body formats.
+解析取决于 PSR-7 实现，对于自定义主体格式可能需要中间件。
 
 ```php
 <?php
@@ -164,10 +164,9 @@ final readonly class JsonBodyParserMiddleware implements MiddlewareInterface
 }
 ```
 
-## File uploads
+## 文件上传
 
-Uploaded files that user submitted from a form with `enctype` attribute equals to `multipart/form-data` are handled
-via special request method:
+用户从 `enctype` 属性等于 `multipart/form-data` 的表单提交的上传文件通过特殊的请求方法处理：
 
 ```php
 $files = $request->getUploadedFiles();
@@ -178,7 +177,7 @@ foreach ($files as $file) {
 }
 ```
 
-## Attributes
+## 属性
 
-Application middleware may set custom request attributes using `withAttribute()` method.
-You can get these attributes with `getAttribute()`.
+应用程序中间件可以使用 `withAttribute()` 方法设置自定义请求属性。
+你可以使用 `getAttribute()` 获取这些属性。

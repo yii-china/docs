@@ -1,24 +1,22 @@
-# Scripts, styles and meta tags
+# 脚本、样式和元标签
 
-Modern web applications require careful management of CSS styles, JavaScript code, and HTML meta tags.
-Yii3 provides a comprehensive system for registering and organizing these resources through the `WebView` class,
-which is part of the `yiisoft/view` package.
+现代 Web 应用需要仔细管理 CSS 样式、JavaScript 代码和 HTML 元标签。Yii3 通过 `WebView` 类提供了一个全面的系统来注册和组织这些资源，该类是 `yiisoft/view` 包的一部分。
 
-## Overview
+## 概述
 
-The `WebView` class extends the basic `View` class with web-specific functionality, allowing you to:
+`WebView` 类扩展了基本的 `View` 类，增加了 Web 特定的功能，允许您：
 
-- Register CSS files and inline styles
-- Register JavaScript files and inline scripts  
-- Manage HTML meta tags and link tags
-- Control the position where resources are rendered
-- Handle dependencies between resources
+- 注册 CSS 文件和内联样式
+- 注册 JavaScript 文件和内联脚本  
+- 管理 HTML 元标签和 link 标签
+- 控制资源渲染的位置
+- 处理资源之间的依赖关系
 
-## CSS management
+## CSS 管理
 
-### Registering CSS Files
+### 注册 CSS 文件
 
-You can register CSS files to be included in your HTML pages:
+您可以注册要包含在 HTML 页面中的 CSS 文件：
 
 ```php
 <?php
@@ -31,24 +29,24 @@ use Yiisoft\View\WebView;
  * @var WebView $this
  */
 
-// Register a CSS file
+// 注册 CSS 文件
 $this->registerCssFile('/css/styles.css');
 
-// Register CSS file with attributes
+// 注册带属性的 CSS 文件
 $this->registerCssFile('/css/print.css', WebView::POSITION_HEAD, [
     'media' => 'print',
 ]);
 
-// Register CSS file with custom key to avoid duplicates
+// 使用自定义键注册 CSS 文件以避免重复
 $this->registerCssFile('/css/theme.css', WebView::POSITION_HEAD, [], 'theme-css');
 ```
 
-### Registering Inline CSS
+### 注册内联 CSS
 
-For inline CSS styles, use the `registerCss()` method:
+对于内联 CSS 样式，使用 `registerCss()` 方法：
 
 ```php
-// Register inline CSS
+// 注册内联 CSS
 $this->registerCss('
     .highlight {
         background-color: yellow;
@@ -60,7 +58,7 @@ $this->registerCss('
     }
 ', WebView::POSITION_HEAD);
 
-// With custom attributes
+// 带自定义属性
 $this->registerCss('
     @media print {
         .no-print { display: none; }
@@ -68,20 +66,20 @@ $this->registerCss('
 ', WebView::POSITION_HEAD, ['id' => 'print-styles']);
 ```
 
-### CSS from Files
+### 从文件注册 CSS
 
-You can also register CSS content from external files:
+您也可以从外部文件注册 CSS 内容：
 
 ```php
-// Read CSS from a file and register as inline CSS
+// 从文件读取 CSS 并注册为内联 CSS
 $this->registerCssFromFile('/path/to/dynamic-styles.css', WebView::POSITION_HEAD, [
     'id' => 'dynamic-styles',
 ]);
 ```
 
-### Using Style Tags
+### 使用样式标签
 
-For more control, you can use HTML style tags directly:
+为了更好地控制，您可以直接使用 HTML 样式标签：
 
 ```php
 use Yiisoft\Html\Html;
@@ -98,37 +96,37 @@ $styleTag = Html::style('
 $this->registerStyleTag($styleTag, WebView::POSITION_HEAD);
 ```
 
-## JavaScript management
+## JavaScript 管理
 
-### Registering JavaScript Files
+### 注册 JavaScript 文件
 
-Include external JavaScript files using `registerJsFile()`:
+使用 `registerJsFile()` 包含外部 JavaScript 文件：
 
 ```php
-// Register a JavaScript file
+// 注册 JavaScript 文件
 $this->registerJsFile('/js/main.js');
 
-// Register with attributes (async loading)
+// 注册带属性的文件（异步加载）
 $this->registerJsFile('/js/analytics.js', WebView::POSITION_END, [
     'async' => true,
 ]);
 
-// Register with defer attribute
+// 注册带 defer 属性的文件
 $this->registerJsFile('/js/interactive.js', WebView::POSITION_END, [
     'defer' => true,
 ]);
 
-// Register from CDN
+// 从 CDN 注册
 $this->registerJsFile('https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js', 
     WebView::POSITION_END, [], 'jquery');
 ```
 
-### Registering Inline JavaScript
+### 注册内联 JavaScript
 
-Add inline JavaScript code with `registerJs()`:
+使用 `registerJs()` 添加内联 JavaScript 代码：
 
 ```php
-// Register inline JavaScript
+// 注册内联 JavaScript
 $this->registerJs('
     document.addEventListener("DOMContentLoaded", function() {
         console.log("Page loaded!");
@@ -136,7 +134,7 @@ $this->registerJs('
     });
 ', WebView::POSITION_END);
 
-// Register JavaScript that should run when DOM is ready
+// 注册应在 DOM 准备就绪时运行的 JavaScript
 $this->registerJs('
     function showAlert(message) {
         alert(message);
@@ -144,12 +142,12 @@ $this->registerJs('
 ', WebView::POSITION_READY);
 ```
 
-### JavaScript Variables
+### JavaScript 变量
 
-Pass PHP data to JavaScript using `registerJsVar()`:
+使用 `registerJsVar()` 将 PHP 数据传递给 JavaScript：
 
 ```php
-// Register JavaScript variables
+// 注册 JavaScript 变量
 $this->registerJsVar('apiUrl', 'https://api.example.com');
 $this->registerJsVar('currentUser', [
     'id' => $user->getId(),
@@ -162,7 +160,7 @@ $this->registerJsVar('config', [
 ]);
 ```
 
-This generates JavaScript code like:
+这会生成如下 JavaScript 代码：
 
 ```html
 <script>
@@ -172,9 +170,9 @@ var config = {"debug":true,"locale":"en-US"};
 </script>
 ```
 
-### Using Script Tags
+### 使用脚本标签
 
-For more control over script tags:
+为了更好地控制脚本标签：
 
 ```php
 use Yiisoft\Html\Html;
@@ -190,30 +188,30 @@ $scriptTag = Html::script('
 $this->registerScriptTag($scriptTag, WebView::POSITION_END);
 ```
 
-## Position Constants
+## 位置常量
 
-Resources can be positioned at different locations in the HTML document:
+资源可以放置在 HTML 文档的不同位置：
 
 ```php
 use Yiisoft\View\WebView;
 
-// In the <head> section
+// 在 <head> 部分
 WebView::POSITION_HEAD
 
-// At the beginning of <body>
+// 在 <body> 开头
 WebView::POSITION_BEGIN  
 
-// At the end of <body> (before </body>)
+// 在 <body> 结尾（在 </body> 之前）
 WebView::POSITION_END
 
-// When DOM is ready (jQuery document.ready equivalent)
+// 当 DOM 准备就绪时（相当于 jQuery document.ready）
 WebView::POSITION_READY
 
-// When page is fully loaded (window.onload equivalent)
+// 当页面完全加载时（相当于 window.onload）
 WebView::POSITION_LOAD
 ```
 
-Example layout showing where each position is rendered:
+显示每个位置渲染位置的示例布局：
 
 ```php
 <?php
@@ -228,54 +226,54 @@ declare(strict_types=1);
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- POSITION_HEAD resources rendered here -->
+    <!-- POSITION_HEAD 资源在此渲染 -->
     <?php $this->head() ?>
 </head>
 <body>
-    <!-- POSITION_BEGIN resources rendered here -->
+    <!-- POSITION_BEGIN 资源在此渲染 -->
     <?php $this->beginBody() ?>
     
     <main>
         <?= $content ?>
     </main>
     
-    <!-- POSITION_END, POSITION_READY, POSITION_LOAD resources rendered here -->
+    <!-- POSITION_END、POSITION_READY、POSITION_LOAD 资源在此渲染 -->
     <?php $this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>
 ```
 
-## Meta tags
+## 元标签
 
-### Basic Meta Tags
+### 基本元标签
 
-Register meta tags for SEO and page information:
+为 SEO 和页面信息注册元标签：
 
 ```php
-// Register meta tags using array syntax
+// 使用数组语法注册元标签
 $this->registerMeta(['name' => 'description', 'content' => 'Page description']);
 $this->registerMeta(['name' => 'keywords', 'content' => 'yii, php, framework']);
 $this->registerMeta(['name' => 'author', 'content' => 'John Doe']);
 $this->registerMeta(['name' => 'robots', 'content' => 'index, follow']);
 
-// Viewport for responsive design
+// 响应式设计的视口
 $this->registerMeta(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1']);
 
-// Open Graph tags for social media
+// 社交媒体的 Open Graph 标签
 $this->registerMeta(['property' => 'og:title', 'content' => 'Page Title']);
 $this->registerMeta(['property' => 'og:description', 'content' => 'Page description']);
 $this->registerMeta(['property' => 'og:image', 'content' => 'https://example.com/image.jpg']);
 ```
 
-### Using Meta Tag Objects
+### 使用元标签对象
 
-For more control, use the `Html::meta()` helper:
+为了更好地控制，使用 `Html::meta()` 辅助函数：
 
 ```php
 use Yiisoft\Html\Html;
 
-// Create meta tags with the Html helper
+// 使用 Html 辅助函数创建元标签
 $this->registerMetaTag(
     Html::meta()
         ->name('description')
@@ -285,43 +283,43 @@ $this->registerMetaTag(
 $this->registerMetaTag(
     Html::meta()
         ->httpEquiv('refresh')
-        ->content('300') // Refresh every 5 minutes
+        ->content('300') // 每 5 分钟刷新一次
 );
 ```
 
-### Preventing Duplicate Meta Tags
+### 防止重复元标签
 
-Use keys to prevent duplicate meta tags:
+使用键来防止重复的元标签：
 
 ```php
-// First registration
+// 第一次注册
 $this->registerMeta([
     'name' => 'description',
     'content' => 'Original description'
 ], 'description');
 
-// This will override the previous one
+// 这将覆盖前一个
 $this->registerMeta([
     'name' => 'description', 
     'content' => 'Updated description'
 ], 'description');
 ```
 
-## Link tags
+## Link 标签
 
-### Basic Link Tags
+### 基本 Link 标签
 
-Register various types of link tags:
+注册各种类型的 link 标签：
 
 ```php
-// Favicon
+// 网站图标
 $this->registerLink([
     'rel' => 'icon',
     'type' => 'image/png',
     'href' => '/favicon.png',
 ]);
 
-// RSS feed
+// RSS 订阅
 $this->registerLink([
     'rel' => 'alternate',
     'type' => 'application/rss+xml',
@@ -329,13 +327,13 @@ $this->registerLink([
     'href' => '/feed.rss',
 ]);
 
-// Canonical URL
+// 规范 URL
 $this->registerLink([
     'rel' => 'canonical',
     'href' => 'https://example.com/canonical-url',
 ]);
 
-// Preload resources
+// 预加载资源
 $this->registerLink([
     'rel' => 'preload',
     'href' => '/fonts/main.woff2',
@@ -345,19 +343,19 @@ $this->registerLink([
 ]);
 ```
 
-### Using Link Tag Objects
+### 使用 Link 标签对象
 
 ```php
 use Yiisoft\Html\Html;
 
-// CSS stylesheet
+// CSS 样式表
 $this->registerLinkTag(
     Html::link('/css/main.css', [
         'rel' => 'stylesheet',
     ])
 );
 
-// DNS prefetch
+// DNS 预取
 $this->registerLinkTag(
     Html::link('https://fonts.googleapis.com', [
         'rel' => 'dns-prefetch',
@@ -365,11 +363,11 @@ $this->registerLinkTag(
 );
 ```
 
-## Practical Examples
+## 实际示例
 
-### Complete Page Setup
+### 完整的页面设置
 
-Here's how you might set up a complete page with all types of resources:
+以下是如何设置包含所有类型资源的完整页面：
 
 ```php
 <?php
@@ -386,33 +384,33 @@ use Yiisoft\View\WebView;
  * @var array $product
  */
 
-// Set page title
+// 设置页面标题
 $this->setTitle($title);
 
-// Meta tags
+// 元标签
 $this->registerMeta(['name' => 'description', 'content' => $description]);
 $this->registerMeta(['name' => 'keywords', 'content' => 'ecommerce, products, online shop']);
 
-// Open Graph tags
+// Open Graph 标签
 $this->registerMeta(['property' => 'og:title', 'content' => $title]);
 $this->registerMeta(['property' => 'og:description', 'content' => $description]);
 $this->registerMeta(['property' => 'og:image', 'content' => $product['image']]);
 
-// CSS files
+// CSS 文件
 $this->registerCssFile('/css/product.css');
 $this->registerCssFile('/css/responsive.css', WebView::POSITION_HEAD, [
     'media' => 'screen and (max-width: 768px)',
 ]);
 
-// JavaScript files
+// JavaScript 文件
 $this->registerJsFile('/js/product-gallery.js', WebView::POSITION_END);
 $this->registerJsFile('/js/shopping-cart.js', WebView::POSITION_END);
 
-// JavaScript variables
+// JavaScript 变量
 $this->registerJsVar('productData', $product);
 $this->registerJsVar('cartApiUrl', '/api/cart');
 
-// Inline JavaScript
+// 内联 JavaScript
 $this->registerJs('
     document.addEventListener("DOMContentLoaded", function() {
         initProductGallery();
@@ -420,7 +418,7 @@ $this->registerJs('
     });
 ', WebView::POSITION_END);
 
-// Page-specific styles
+// 页面特定样式
 $this->registerCss('
     .product-special {
         background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
@@ -431,13 +429,13 @@ $this->registerCss('
 ?>
 
 <div class="product-page">
-    <!-- Your page content here -->
+    <!-- 您的页面内容在此 -->
 </div>
 ```
 
-### Conditional Resource Loading
+### 条件资源加载
 
-Load resources based on conditions:
+根据条件加载资源：
 
 ```php
 <?php
@@ -451,20 +449,20 @@ declare(strict_types=1);
  * @var string $userRole
  */
 
-// Load theme-specific CSS
+// 加载主题特定的 CSS
 if ($isDarkMode) {
     $this->registerCssFile('/css/dark-theme.css');
 } else {
     $this->registerCssFile('/css/light-theme.css');
 }
 
-// Admin-specific resources
+// 管理员特定资源
 if ($isAdmin) {
     $this->registerCssFile('/css/admin-toolbar.css');
     $this->registerJsFile('/js/admin-functions.js');
 }
 
-// Role-based JavaScript configuration
+// 基于角色的 JavaScript 配置
 $this->registerJsVar('userPermissions', [
     'canEdit' => in_array($userRole, ['admin', 'editor']),
     'canDelete' => $userRole === 'admin',
@@ -473,28 +471,28 @@ $this->registerJsVar('userPermissions', [
 ?>
 ```
 
-## Best Practices
+## 最佳实践
 
-1. **Use appropriate positions**: Place CSS in `POSITION_HEAD`, JavaScript at `POSITION_END`
-2. **Minimize inline resources**: Prefer external files for better caching
-3. **Use keys for duplicates**: Prevent duplicate resources with meaningful keys
-4. **Optimize loading**: Use `async` and `defer` attributes for non-critical JavaScript
-5. **Group related resources**: Keep related CSS and JS files together
-6. **Use CDNs wisely**: Balance performance with reliability
-7. **Validate meta tags**: Ensure proper SEO meta tags are set
-8. **Consider security**: Be careful with inline scripts and CSP policies
+1. **使用适当的位置**：将 CSS 放在 `POSITION_HEAD`，JavaScript 放在 `POSITION_END`
+2. **最小化内联资源**：优先使用外部文件以获得更好的缓存
+3. **使用键避免重复**：使用有意义的键防止重复资源
+4. **优化加载**：对非关键 JavaScript 使用 `async` 和 `defer` 属性
+5. **分组相关资源**：将相关的 CSS 和 JS 文件放在一起
+6. **明智使用 CDN**：平衡性能与可靠性
+7. **验证元标签**：确保设置了适当的 SEO 元标签
+8. **考虑安全性**：小心使用内联脚本和 CSP 策略
 
-## Working with Asset Bundles
+## 使用资源包
 
-For more complex asset management, consider using asset bundles:
+对于更复杂的资源管理，考虑使用资源包：
 
 ```php
-// Register an asset bundle (covered in detail in the Assets guide)
+// 注册资源包（在资源指南中详细介绍）
 $assetBundle = $this->assetManager->register(MainAsset::class);
 
-// Add all CSS files from the bundle
+// 从包中添加所有 CSS 文件
 $this->addCssFiles($this->assetManager->getCssFiles());
 
-// Add all JavaScript files from the bundle  
+// 从包中添加所有 JavaScript 文件  
 $this->addJsFiles($this->assetManager->getJsFiles());
 ```

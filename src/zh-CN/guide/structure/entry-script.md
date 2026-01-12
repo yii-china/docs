@@ -1,27 +1,23 @@
-# Entry scripts
+# 入口脚本
 
-Entry scripts are the first step in the application bootstrapping process. An application (either
-Web application or console application) has a single entry script. End users make requests to
-entry scripts which instantiate application instances and forward the requests to them.
+入口脚本是应用程序引导过程的第一步。应用程序（无论是 Web 应用程序还是控制台应用程序）都有一个入口脚本。最终用户向入口脚本发出请求，入口脚本实例化应用程序实例并将请求转发给它们。
 
-Entry scripts for Web applications must be stored under Web-accessible directories so that they
-can be accessed by end users. They're often named as `index.php`, but can also use any other names,
-provided Web servers can locate them.
+Web 应用程序的入口脚本必须存储在 Web 可访问的目录下，以便最终用户可以访问它们。它们通常命名为 `index.php`，但也可以使用任何其他名称，只要 Web 服务器可以定位它们。
 
-Entry script for console application is `./yii`.
+控制台应用程序的入口脚本是 `./yii`。
 
-Entry scripts mainly perform the following work with the help of `ApplicationRunner`:
+入口脚本在 `ApplicationRunner` 的帮助下主要执行以下工作：
 
-* Register [Composer autoloader](https://getcomposer.org/doc/01-basic-usage.md#autoloading);
-* Obtain configuration;
-* Use configuration to initialize a dependency injection container;
-* Get an instance of the request.
-* Pass it to `Application` to handle and get a response from it.
-* With the help of an emitter that transforms a response object into an actual HTTP response that's sent to the client browser.
+* 注册 [Composer 自动加载器](https://getcomposer.org/doc/01-basic-usage.md#autoloading)；
+* 获取配置；
+* 使用配置初始化依赖注入容器；
+* 获取请求的实例。
+* 将其传递给 `Application` 进行处理并从中获取响应。
+* 在发射器的帮助下，将响应对象转换为发送到客户端浏览器的实际 HTTP 响应。
 
-## Web Applications <span id="web-applications"></span>
+## Web 应用程序 <span id="web-applications"></span>
 
-The following is the code in the entry script for the application template:
+以下是应用程序模板的入口脚本中的代码：
 
 ```php
 <?php
@@ -51,9 +47,9 @@ $runner->run();
 ```
 
 
-## Console Applications <span id="console-applications"></span>
+## 控制台应用程序 <span id="console-applications"></span>
 
-Similarly, the following is the code for the entry script of a console application:
+类似地，以下是控制台应用程序的入口脚本代码：
 
 ```php
 #!/usr/bin/env php
@@ -99,9 +95,9 @@ try {
 }
 ```
 
-## Alternative runtimes
+## 替代运行时
 
-For alternative runtimes such as RoadRunner or Swoole, special entry scripts should be used. See:
+对于诸如 RoadRunner 或 Swoole 之类的替代运行时，应使用特殊的入口脚本。请参阅：
 
-- [Using Yii with RoadRunner](../tutorial/using-yii-with-roadrunner.md)
-- [Using Yii with Swoole](../tutorial/using-yii-with-swoole.md)
+- [使用 Yii 与 RoadRunner](../tutorial/using-yii-with-roadrunner.md)
+- [使用 Yii 与 Swoole](../tutorial/using-yii-with-swoole.md)

@@ -1,23 +1,22 @@
-# Console applications
+# 控制台应用
 
-Console applications are mainly used to create utility, background processing and maintenance tasks.
+控制台应用主要用于创建实用工具、后台处理和维护任务。
 
-To get support for console application in your project, get `yiisoft/yii-console` via composer:
-
+要在项目中获得控制台应用支持，请通过 composer 安装 `yiisoft/yii-console`：
 
 ```
 composer require yiisoft/yii-console
 ```
 
-After it's installed, you can access the entry point as
+安装完成后，您可以通过以下方式访问入口点：
 
 ```
 ./yii
 ```
 
-Out of the box only `serve` command is available. It's starting PHP built-in web server to serve the application locally.
+开箱即用的只有 `serve` 命令。它会启动 PHP 内置的 Web 服务器来在本地提供应用服务。
 
-Commands are executed with `symfony/console`. To create your own console command, you need to define a command:
+命令通过 `symfony/console` 执行。要创建自己的控制台命令，您需要定义一个命令：
 
 ```php
 <?php
@@ -37,10 +36,10 @@ use Yiisoft\Yii\Console\ExitCode;
     
 )]
 class HelloCommand extends Command
-{   
+{
     public function configure(): void
     {
-        $this            
+        $this
             ->setHelp('This command serves for demo purpose')
             ->addArgument('name', InputArgument::OPTIONAL, 'Name to greet', 'anonymous');
     }
@@ -56,7 +55,7 @@ class HelloCommand extends Command
 }
 ```
 
-Now register the command in `config/params.php`:
+现在在 `config/params.php` 中注册该命令：
 
 ```php
 return [
@@ -64,17 +63,16 @@ return [
         'commands' => [
             'demo/hello' => App\Demo\HelloCommand::class,
         ],
-    ],    
+    ],
 ];
 ```
 
-After it's done, the command could be executed as
+完成后，可以这样执行命令：
 
 ```
 ./yii demo:hello Alice
 ```
 
+## 参考资料
 
-## References
-
-- [Symfony Console component guide](https://symfony.com/doc/current/components/console.html)
+- [Symfony Console 组件指南](https://symfony.com/doc/current/components/console.html)
