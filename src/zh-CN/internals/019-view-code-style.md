@@ -7,7 +7,7 @@
 
 视图文件头部用于放置描述可用变量的 phpdoc 和导入类：
 
-\`\`\`php
+```php
 <?php
 
 declare(strict_types=1);
@@ -16,26 +16,26 @@ declare(strict_types=1);
 /** @var string $name */
 
 use Yiisoft\Html\Html;
-\`\`\`
+```
 
 ## 控制结构
 
 首选控制结构的替代语法，如 `foreach` 和 `if`：
 
-\`\`\`php
-<?php foreach ($posts as $post): ?>   
+```php
+<?php foreach ($posts as $post): ?>
     <h2><?= Html::encode($post->getTitle()) ?></h2>
     <p><?= Html::encode($post->getDescription()) ?></p>
 <?php endforeach; ?>
-\`\`\`
+```
 
 ## 短回显
 
 首选短回显：
 
-\`\`\`php
+```php
 <?= Html::encode($name) ?>
-\`\`\`
+```
 
 ## 类方法
 

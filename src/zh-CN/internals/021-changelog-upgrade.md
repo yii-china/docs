@@ -6,7 +6,7 @@
 
 为每个发布的版本编写变更日志。文件名是 `CHANGELOG.md`。格式如下：
 
-\`\`\`markdown
+```markdown
 # My package Change Log
 
 ## 1.0.2 under development
@@ -20,7 +20,7 @@
 ## 1.0.0 February 02, 2021
 
 - Initial release.
-\`\`\`
+```
 
 其中"My package"是包的名称，`1.0.1` 是发布的版本，后跟发布日期。
 对于每个版本，都有多行列出更改。
@@ -43,7 +43,7 @@
 
 文件名是 `UPGRADE.md`。格式如下：
 
-\`\`\`markdown
+```markdown
 # Upgrading Instructions for my package
 
 This file contains the upgrade notes. These notes highlight changes that could break your
@@ -60,4 +60,4 @@ application when you upgrade the package from one version to another.
 ## Upgrade from 1.x
 
 - Clean up the cache after upgrading. Old cache is not compatible with new code.
-\`\`\`
+```

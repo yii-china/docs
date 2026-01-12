@@ -46,7 +46,7 @@
 
 块采用 [GitHub Alerts 格式](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)：
 
-\`\`\`
+```
 > [!NOTE]
 > 用户应该知道的有用信息，即使在浏览内容时也是如此。
 
@@ -61,12 +61,12 @@
 
 > [!CAUTION]
 > 关于某些操作的风险或负面结果的建议。
-\`\`\`
+```
 
 翻译文档时，不应翻译这些块指示符。保持它们原样，只翻译块内容。
 要翻译块的标签，每个指南翻译都应该有一个包含翻译的 `blocktypes.json` 文件。以下显示了德语的示例：
 
-\`\`\`json
+```json
 {
     "Note": "Hinweis",
     "Tip": "Tipp",
@@ -74,13 +74,13 @@
     "Warning": "Achtung",
     "Caution": "Vorsicht"
 }
-\`\`\`
+```
 
 ## PHPDoc
 
 如果 PHPDoc 没有为其描述的内容添加任何内容，则不得添加。以下是一个不好的例子：
 
-\`\`\`php
+```php
 use Psr\Log\LoggerInterface;
 
 /**
@@ -110,7 +110,7 @@ final class MyService extends MyServiceBase
         return parent::doit();    
     }
 }
-\`\`\` 
+``` 
 
 PHPDoc（如果存在）应该描述它所添加的元素的目的。
 

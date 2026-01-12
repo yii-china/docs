@@ -20,18 +20,18 @@
 
 2. 从 `master` 分支拉取最新更改：
 
-\`\`\`shell
+```shell
 ./yii-dev git/checkout master package-name
 ./yii-dev git/pull package-name
-\`\`\`
+```
 
 3. 检查包是否符合上述标准。
 
 4. 运行 `release/make` 命令：
 
-\`\`\`shell
+```shell
 ./yii-dev release/make package-name
-\`\`\`
+```
 
 5. 选择版本类型（major、minor 或 patch）。
 

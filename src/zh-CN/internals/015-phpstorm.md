@@ -19,7 +19,7 @@
 所有常量字典应命名为 `{类 FQN}::{组名}`。组名应简短并用大写字母书写。
 使用下划线作为单词分隔符，即 `\Yiisoft\Http\Status::STATUSES`。例如：
 
-\`\`\`php
+```php
 expectedReturnValues(
   \Psr\Http\Message\RequestInterface::getMethod(),
   argumentsSet('\Yiisoft\Http\Method::METHODS'),
@@ -35,25 +35,25 @@ registerArgumentsSet(
   \Yiisoft\Http\Method::HEAD,
   \Yiisoft\Http\Method::OPTIONS,
 );
-\`\`\`
+```
 
 ## PhpStorm 属性
 
 [PhpStorm 属性](https://github.com/JetBrains/phpstorm-attributes) 可以在代码中使用，但必须将包 `jetbrains/phpstorm-attributes` 添加为开发依赖项：
 
-\`\`\`shell
+```shell
 composer require --dev jetbrains/phpstorm-attributes
-\`\`\`
+```
 
 ### 与 ComposerRequireChecker 一起使用
 
 当在同一个包中也使用 [ComposerRequireChecker](https://github.com/maglnet/ComposerRequireChecker) 时，将涉及的属性类名添加到配置中的白名单。例如：
 
-\`\`\`json
+```json
 {
     "symbol-whitelist": [
         "JetBrains\\PhpStorm\\ExpectedValues",
         "JetBrains\\PhpStorm\\Pure"
     ]
 }
-\`\`\`
+```
