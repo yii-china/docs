@@ -1,0 +1,30 @@
+# 类自动加载
+
+由于 Yii 使用 [Composer](https://getcomposer.org) 来管理包，它会自动加载这些包中的类，
+无需显式 `require` 它们的文件。
+当安装包时，Composer 会生成一个 [PSR-4 兼容的自动加载器](https://www.php-fig.org/psr/psr-4/)。
+要使用它，在你的 `index.php` 入口文件中 `require_once` 自动加载器 `/vendor/autoload.php`。
+
+你不仅可以为已安装的包使用自动加载器，还可以为你的应用程序使用，因为它本身也是一个包。
+要加载特定命名空间的类，请在 `composer.json` 中添加以下内容：
+
+```json
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
+```
+
+其中 `App\\` 是根命名空间，`src/` 是存放类文件的目录。如果需要，你可以添加更多源根目录。
+完成后，执行 `composer dump-autoload` 或简写为 `composer du`，相应命名空间中的类就会开始自动加载。
+
+如果你需要仅在开发环境中使用的自动加载配置（在使用 `--no-dev` 标志执行 Composer 时不会使用），
+请将其添加到 `autoload-dev` 部分而不是 `autoload` 部分。
+
+## 参考资料
+
+- [PSR-4: 自动加载器](https://www.php-fig.org/psr/psr-4/)
+- [Composer 自动加载指南](https://getcomposer.org/doc/01-basic-usage.md#autoloading)
