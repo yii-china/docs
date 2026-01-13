@@ -171,15 +171,15 @@ final class M251102141707Page implements RevertibleMigrationInterface
 {
     public function up(MigrationBuilder $b): void
     {
-        $cb = $b->columnBuilder();
+        $column = $b->columnBuilder();
 
         $b->createTable('page', [
-            'id' => $cb::uuidPrimaryKey(),
-            'title' => $cb::string()->notNull(),
-            'slug' => $cb::string()->notNull()->unique(),
-            'text' => $cb::text()->notNull(),
-            'created_at' => $cb::dateTime(),
-            'updated_at' => $cb::dateTime(),
+            'id' => $column::uuidPrimaryKey(),
+            'title' => $column::string()->notNull(),
+            'slug' => $column::string()->notNull()->unique(),
+            'text' => $column::text()->notNull(),
+            'created_at' => $column::dateTime(),
+            'updated_at' => $column::dateTime(),
         ]);
     }
 
@@ -189,6 +189,8 @@ final class M251102141707Page implements RevertibleMigrationInterface
     }
 }
 ```
+
+The `M251102141707Page` name of the migration class is generated so replace the `Page` suffix with the actual migration name. The `M251102141707` prefix is needed to find and sort migrations in the order they were added.
 
 Note that we use UUID as the primary key. We are going to generate these IDs ourselves instead of relying on database
 so we'll need an extra compose package for that.
@@ -542,7 +544,32 @@ final readonly class DeleteAction
 
 ### Create or update a page
 
-Create `src/Web/Page/EditAction.php`:
+First of all, we need a form at `src/Web/Page/Form.php`:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Web\Page;
+
+use Yiisoft\FormModel\FormModel;
+use Yiisoft\Validator\Label;
+use Yiisoft\Validator\Rule\Length;
+
+final class Form extends FormModel
+{
+    #[Label('Title')]
+    #[Length(min: 2)]
+    public string $title = '';
+
+    #[Label('Text')]
+    #[Length(min: 2)]
+    public string $text = '';
+}
+```
+
+Then an action. Create `src/Web/Page/EditAction.php`:
 
 ```php
 <?php
@@ -622,6 +649,8 @@ final readonly class EditAction
     }
 }
 ```
+
+Note that `Uuid::uuid7()->toString()` won't work for MySQL and you'll need bytes instead, `Uuid::uuid7()->getBytes()`.
 
 In the above we use a special slug in the URL for new pages so the URL looks like `http://localhost/pages/new`. If the
 page isn't new, we pre-fill the form with the data from the database. Similar to how we did in [Working with forms](forms.md),

@@ -63,9 +63,10 @@ use Middlewares\BasicAuthentication;
 
 return [
     //...
-    Route::get('/basic-auth')->([SiteController::class, 'auth'])
+    Route::get('/basic-auth')
+        ->action([SiteController::class, 'auth'])
         ->name('site/auth')
-        ->addMiddleware(BasicAuthentication::class)
+        ->prependMiddleware(BasicAuthentication::class)
 ];
 ```
 
@@ -119,7 +120,7 @@ To create middleware, you need to implement a single `process` method of
 `Psr\Http\Server\MiddlewareInterface`:
 
 ```php
-public function process(ServerRequestInterface $request, RequestHandlerInterface $next): ResponseInterface;
+public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
 ```
 
 There are multiple ways to handle a request, and choosing one depends on
@@ -147,7 +148,7 @@ final readonly class RespondingMiddleware implements MiddlewareInterface
     {
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $next): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $this->responseFactory->createResponse();
         $response->getBody()->write('Hello!');
@@ -162,7 +163,10 @@ If middleware either isn't intended to form a response or change the request or 
 handling could be left to the next middleware in the stack:  
 
 ```php
-return $next->handle($request);
+public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+{
+    return $handler->handle($request);    
+}
 ```
 
 In case you need to pass data to the next middleware, you can use request
@@ -170,7 +174,7 @@ attributes:
 
 ```php
 $request = $request->withAttribute('answer', 42);
-return $next->handle();
+return $handler->handle($request);
 ``` 
 
 To get it in the next middleware:
@@ -185,7 +189,7 @@ You may want to capture the response to manipulate it. It could be useful
 for adding CORS headers, gzipping content, etc.
 
 ```php
-$response = $next->handle($request);
+$response = $handler->handle($request);
 // extra handing
 return $response;
 ```

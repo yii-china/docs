@@ -1,7 +1,11 @@
 name: Update translations
 
 on:
-  pull_request:
+  pull_request_target:
+    paths:
+      - '_translations/**'
+  push:
+    branches: [ "master" ]
     paths:
       - '_translations/**'
       - 'src/**'
@@ -24,7 +28,7 @@ jobs:
       - name: Use po4a
         uses: addnab/docker-run-action@v3
         with:
-            image: arduanovdanil/po4a-fork:v0.73
+            image: ghcr.io/yiisoft-contrib/po4a:0.74
             options: -v ${{ github.workspace }}:/src -w /src/_translations
             run: po4a po4a.conf && po4a po4a.conf
 
