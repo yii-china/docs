@@ -1026,6 +1026,7 @@ export default {
             }
         },
         'zh-CN': {
+            title: 'Yii3 文档',
             label: '简体中文',
             lang: 'zh-CN',
             link: '/zh-CN/',
@@ -1033,7 +1034,7 @@ export default {
                 nav: [
                     {text: '指南', link: '/zh-CN/guide/'},
                     {text: '实用手册', link: '/zh-CN/cookbook/'},
-                    {text: '内部文档', link: '/zh-CN/internals/'},
+                    {text: '内部机制', link: '/zh-CN/internals/'},
                     {text: '官网', link: 'https://www.yiiframework.com'}
                 ],
                 sidebar: {
@@ -1184,7 +1185,7 @@ export default {
                     ],
                     '/zh-CN/internals/': [
                         {
-                            text: '内部文档',
+                            text: '内部机制',
                             items: [
                                 {text: '包', link: '/zh-CN/internals/000-packages'},
                                 {text: 'Yii 价值观', link: '/zh-CN/internals/001-yii-values'},
@@ -1216,6 +1217,13 @@ export default {
                 footer: {
                     message: '基于 <a href="https://github.com/yiisoft/docs/blob/master/LICENSE.md">BSD-3-Clause 许可证</a> 发布。',
                     copyright: `Copyright © 2008-${currentYear} <a href="https://www.yiiframework.com/">Yii</a>`
+                },
+                docFooter: {
+                    prev: '上一页',
+                    next: '下一页',
+                },
+                outline: {
+                    label: '本页内容'
                 }
             }
         }
