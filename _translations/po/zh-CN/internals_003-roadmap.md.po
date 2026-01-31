@@ -78,7 +78,7 @@ msgstr "PSR-3 日志记录器"
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "Implemented as a [separate package that isn't dependent on a framework](https://github.com/yiisoft/log)."
-msgstr "实现为[不依赖于框架的独立包](https://github.com/yiisoft/log)。"
+msgstr "实现为 [不依赖于框架的独立包](https://github.com/yiisoft/log)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -141,7 +141,7 @@ msgstr "PSR-11 容器"
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "Implemented as a [separate package that isn't dependent on a framework](https://github.com/yiisoft/di)."
-msgstr "实现为[不依赖于框架的独立包](https://github.com/yiisoft/di)。"
+msgstr "实现为 [不依赖于框架的独立包](https://github.com/yiisoft/di)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -209,17 +209,17 @@ msgstr "PSR-15 HTTP 处理器"
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Rewrite HTTP flow to PSR-7 request-response + formatting response via emitter."
-msgstr "[x] 将 HTTP 流程重写为 PSR-7 请求-响应 + 通过发射器格式化响应。"
+msgstr "[x] 将 HTTP 流程重写为 PSR-7 请求-响应 + 通过 Emitter 进行格式化响应。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Offer SAPI emitter out of the box."
-msgstr "[x] 开箱即用地提供 SAPI 发射器。"
+msgstr "[x] 开箱即用地提供 SAPI Emitter。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Make it possible to use alternative emitters such as RoadRunner."
-msgstr "[x] 使使用 RoadRunner 等替代发射器成为可能。"
+msgstr "[x] 支持使用 RoadRunner 等替代的 Emitter 实现。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -260,7 +260,7 @@ msgstr "PSR-16 简单缓存"
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "Implemented as a [separate package that isn't dependent on a framework](https://github.com/yiisoft/cache)."
-msgstr "实现为[不依赖于框架的独立包](https://github.com/yiisoft/cache)。"
+msgstr "实现为 [不依赖于框架的独立包](https://github.com/yiisoft/cache)。"
 
 #. type: Title ###
 #: ../src/internals/003-roadmap.md
@@ -288,7 +288,7 @@ msgstr "更严格的类型"
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Make sure type hinting is used everywhere."
-msgstr "[x] 确保到处使用类型提示。"
+msgstr "[x] 确保在所有地方都使用类型提示。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -309,7 +309,7 @@ msgstr "[x] 放弃 basic/advanced。"
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Create a [single application template that works out of the box](https://github.com/yiisoft/app)."
-msgstr "[x] 创建一个[开箱即用的单一应用程序模板](https://github.com/yiisoft/app)。"
+msgstr "[x] 创建一个 [开箱即用的单一应用程序模板](https://github.com/yiisoft/app)。"
 
 #. type: Title ##
 #: ../src/internals/003-roadmap.md
@@ -320,7 +320,7 @@ msgstr "路由器"
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "Implemented as a [separate package that isn't dependent on a framework](https://github.com/yiisoft/router)."
-msgstr "实现为[不依赖于框架的独立包](https://github.com/yiisoft/router)。"
+msgstr "实现为 [不依赖于框架的独立包](https://github.com/yiisoft/router)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -448,7 +448,7 @@ msgstr ""
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "RBAC is implemented as [a framework-independent package](https://github.com/yiisoft/rbac)."
-msgstr "RBAC 实现为[独立于框架的包](https://github.com/yiisoft/rbac)。"
+msgstr "RBAC 实现为 [独立于框架的包](https://github.com/yiisoft/rbac)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -464,7 +464,7 @@ msgstr "视图"
 #. type: Plain text
 #: ../src/internals/003-roadmap.md
 msgid "View is implemented as [framework-independent package](https://github.com/yiisoft/view)."
-msgstr "视图实现为[独立于框架的包](https://github.com/yiisoft/view)。"
+msgstr "视图实现为 [独立于框架的包](https://github.com/yiisoft/view)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -495,7 +495,7 @@ msgstr "数据抽象和网格"
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Finish [data abstractions](https://github.com/yiisoft/data)."
-msgstr "[x] 完成[数据抽象](https://github.com/yiisoft/data)。"
+msgstr "[x] 完成 [数据抽象](https://github.com/yiisoft/data)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
@@ -526,7 +526,7 @@ msgstr "验证器"
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md
 msgid "[x] Finish [the main package](https://github.com/yiisoft/validator) redesign"
-msgstr "[x] 完成[主包](https://github.com/yiisoft/validator)重新设计"
+msgstr "[x] 完成 [主包](https://github.com/yiisoft/validator) 重新设计"
 
 #. type: Bullet: '- '
 #: ../src/internals/003-roadmap.md

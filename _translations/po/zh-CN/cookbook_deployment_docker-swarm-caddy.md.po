@@ -554,7 +554,7 @@ msgstr "在服务器上创建数据库 password secret："
 #: ../src/cookbook/deployment/docker-swarm-traefik.md
 #, no-wrap
 msgid "echo \"your_secure_password\" | docker secret create db_password -\n"
-msgstr "echo \"your_secure_password\" | docker secret create db_password -\n"
+msgstr ""
 
 #. type: Title ##
 #: ../src/cookbook/deployment/docker-swarm-caddy.md
@@ -581,7 +581,7 @@ msgstr "配置 Docker 以向容器注册表进行身份验证："
 #: ../src/cookbook/deployment/docker-swarm-traefik.md
 #, no-wrap
 msgid "docker login git.example.com\n"
-msgstr "docker login git.example.com\n"
+msgstr ""
 
 #. type: Plain text
 #: ../src/cookbook/deployment/docker-swarm-caddy.md

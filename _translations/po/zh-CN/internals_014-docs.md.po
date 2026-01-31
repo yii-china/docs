@@ -40,7 +40,7 @@ msgstr "包的文档可以在 `README.md` 中，也可以在 `docs/{language}/{t
 #. type: Plain text
 #: ../src/internals/014-docs.md
 msgid "Some indicators that it's time to create `docs`:"
-msgstr "一些表明是时候创建 `docs` 的指标："
+msgstr "以下是创建 `docs` 的一些指标："
 
 #. type: Bullet: '1. '
 #: ../src/internals/014-docs.md

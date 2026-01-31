@@ -24,7 +24,7 @@ msgstr "016 — 安全工作流程"
 #. type: Plain text
 #: ../src/internals/016-security-workflow.md
 msgid "Security issues are typically sent via [a security form](https://www.yiiframework.com/security)."
-msgstr "安全问题通常通过[安全表单](https://www.yiiframework.com/security)发送。"
+msgstr "安全问题通常通过 [安全表单](https://www.yiiframework.com/security) 发送。"
 
 #. type: Plain text
 #: ../src/internals/016-security-workflow.md
@@ -67,12 +67,12 @@ msgstr "确定严重程度"
 #. type: Bullet: '1. '
 #: ../src/internals/016-security-workflow.md
 msgid "Get CVSS score using [NVD calculator](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator)."
-msgstr "使用 [NVD 计算器](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator)获取 CVSS 分数。"
+msgstr "使用 [NVD 计算器](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator) 获取 CVSS 分数。"
 
 #. type: Bullet: '2. '
 #: ../src/internals/016-security-workflow.md
 msgid "Choose severity based on the [rating scale](https://www.first.org/cvss/specification-document#Qualitative-Severity-Rating-Scale)."
-msgstr "根据[评级量表](https://www.first.org/cvss/specification-document#Qualitative-Severity-Rating-Scale)选择严重程度。"
+msgstr "根据 [评级量表](https://www.first.org/cvss/specification-document#Qualitative-Severity-Rating-Scale) 选择严重程度。"
 
 #. type: Title ###
 #: ../src/internals/016-security-workflow.md

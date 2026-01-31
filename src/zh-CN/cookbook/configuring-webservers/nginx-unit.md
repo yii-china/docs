@@ -59,7 +59,7 @@
 }
 ```
 
-你还可以在同一配置中[设置](https://unit.nginx.org/configuration/#php) PHP 环境或提供自定义的
+你还可以在同一配置中 [设置](https://unit.nginx.org/configuration/#php) PHP 环境或提供自定义的
 `php.ini`。
 
 在上面的配置中，请注意 `environment` 的用法。由于 Yii3 应用程序模板使用环境变量，这是设置它们的一个可行位置。在生产环境中，请记得将

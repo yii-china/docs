@@ -14,7 +14,7 @@
 
 ## 发布说明
 
-通过 [Yii 开发工具](005-development-tool.md)发布包。
+通过 [Yii 开发工具](005-development-tool.md) 发布包。
 
 1. 检查您是否可以在本地签署提交（参见
 [签署提交](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)）。

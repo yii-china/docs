@@ -81,7 +81,7 @@ msgstr "发布说明"
 #. type: Plain text
 #: ../src/en/internals/020-package-release.md
 msgid "Release a package via [Yii Development Tool](005-development-tool.md)."
-msgstr "通过 [Yii 开发工具](005-development-tool.md)发布包。"
+msgstr "通过 [Yii 开发工具](005-development-tool.md) 发布包。"
 
 #. type: Plain text
 #: ../src/en/internals/020-package-release.md

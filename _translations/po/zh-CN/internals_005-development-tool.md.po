@@ -80,4 +80,4 @@ msgstr "因此，您将拥有许多相互使用的包，所以在开发过程中
 #. type: Plain text
 #: ../src/en/internals/005-development-tool.md
 msgid "A [detailed example](https://github.com/yiisoft/yii-dev-tool#usage-example) of using the tool is available in its README."
-msgstr "工具的[详细使用示例](https://github.com/yiisoft/yii-dev-tool#usage-example)可在其 README 中找到。"
+msgstr "工具的 [详细使用示例](https://github.com/yiisoft/yii-dev-tool#usage-example) 可在其 README 中找到。"

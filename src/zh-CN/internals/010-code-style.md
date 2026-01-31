@@ -3,18 +3,19 @@
 Yii 3 包中使用的代码格式基于 [PSR-1](https://www.php-fig.org/psr/psr-1/) 和
 [PSR-12](https://www.php-fig.org/psr/psr-12/)，并在此基础上添加了额外的规则。
 
-## 名称
+## Names
 
 - 仅使用英语。
 - 使用驼峰命名法，包括缩写（例如，`enableIdn`）。
 - 使用尽可能短但具有解释性的名称。
 - 永远不要修剪或缩写名称。
-- 对于[集合](https://en.wikipedia.org/wiki/Collection_(abstract_data_type))的类、接口、trait
-  和变量，使用 `Collection` 后缀。
+- 对于 [集合](https://en.wikipedia.org/wiki/Collection_(abstract_data_type))
+  的类、接口、trait 和变量，使用 `Collection` 后缀。
 
 ## 类型
 
-- 尽可能声明[参数和返回类型](https://www.php.net/manual/en/migration70.new-features.php)。
+- 尽可能声明
+  [参数和返回类型](https://www.php.net/manual/en/migration70.new-features.php)。
 - [为属性使用类型](https://wiki.php.net/rfc/typed_properties_v2)。
 - 使用严格类型。尽可能避免混合类型和联合类型，除非是兼容类型，如 `string|Stringable`。
 

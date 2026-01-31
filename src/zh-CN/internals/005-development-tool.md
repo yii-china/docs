@@ -42,5 +42,5 @@ Available commands:
 因此，您将拥有许多相互使用的包，所以在开发过程中无需执行 `git push` 和 `composer install` / `composer
 update`。
 
-工具的[详细使用示例](https://github.com/yiisoft/yii-dev-tool#usage-example)可在其 README
-中找到。
+工具的 [详细使用示例](https://github.com/yiisoft/yii-dev-tool#usage-example) 可在其
+README 中找到。

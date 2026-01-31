@@ -37,7 +37,7 @@ msgstr "Yii 3 包中使用的代码格式基于 [PSR-1](https://www.php-fig.org/
 #: ../src/internals/018-widgets.md
 #, no-wrap
 msgid "Names"
-msgstr "名称"
+msgstr "命名"
 
 #. type: Bullet: '- '
 #: ../src/internals/010-code-style.md
@@ -62,7 +62,7 @@ msgstr "永远不要修剪或缩写名称。"
 #. type: Bullet: '- '
 #: ../src/internals/010-code-style.md
 msgid "Postfix classes, interfaces, traits and variables, which is a [collection](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)), with `Collection`."
-msgstr "对于[集合](https://en.wikipedia.org/wiki/Collection_(abstract_data_type))的类、接口、trait 和变量，使用 `Collection` 后缀。"
+msgstr "对于 [集合](https://en.wikipedia.org/wiki/Collection_(abstract_data_type)) 的类、接口、trait 和变量，使用 `Collection` 后缀。"
 
 #. type: Title ##
 #: ../src/internals/010-code-style.md
@@ -73,7 +73,7 @@ msgstr "类型"
 #. type: Bullet: '- '
 #: ../src/internals/010-code-style.md
 msgid "Declare [argument and return types](https://www.php.net/manual/en/migration70.new-features.php) where possible."
-msgstr "尽可能声明[参数和返回类型](https://www.php.net/manual/en/migration70.new-features.php)。"
+msgstr "尽可能声明 [参数和返回类型](https://www.php.net/manual/en/migration70.new-features.php)。"
 
 #. type: Bullet: '- '
 #: ../src/internals/010-code-style.md

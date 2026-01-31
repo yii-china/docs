@@ -1,6 +1,6 @@
 # 016 — 安全工作流程
 
-安全问题通常通过[安全表单](https://www.yiiframework.com/security)发送。
+安全问题通常通过 [安全表单](https://www.yiiframework.com/security) 发送。
 
 如果问题直接报告到公共页面（如仓库 issue 或论坛主题），请获取消息
 并删除该 issue。感谢报告者，并指出下次使用安全表单。
@@ -15,9 +15,11 @@
 
 ### 确定严重程度
 
-1. 使用 [NVD 计算器](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator)获取 CVSS
-   分数。
-2. 根据[评级量表](https://www.first.org/cvss/specification-document#Qualitative-Severity-Rating-Scale)选择严重程度。
+1. 使用 [NVD 计算器](https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator) 获取
+   CVSS 分数。
+2. 根据
+   [评级量表](https://www.first.org/cvss/specification-document#Qualitative-Severity-Rating-Scale)
+   选择严重程度。
 
 ### 给予报告者荣誉
 

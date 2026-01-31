@@ -19,7 +19,7 @@ msgstr ""
 #: ../src/internals/index.md
 #, no-wrap
 msgid "Yii Framework Internals"
-msgstr "Yii 框架内部"
+msgstr "Yii 框架内部文档"
 
 #. type: Plain text
 #: ../src/internals/index.md

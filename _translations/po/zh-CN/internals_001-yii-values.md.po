@@ -47,7 +47,7 @@ msgstr "我们在工作中表达的价值观支持这一目标。我们努力"
 #: ../src/en/internals/001-yii-values.md
 #, no-wrap
 msgid "Be practical"
-msgstr "务实"
+msgstr "实用"
 
 #. type: Bullet: '    - '
 #: ../src/en/internals/001-yii-values.md
@@ -193,7 +193,7 @@ msgstr "除非抽象有实际目的，否则直接的解决方案比抽象的解
 #. type: Bullet: '- '
 #: ../src/en/internals/001-yii-values.md
 msgid "Loud fails are better than silent fails or masking errors."
-msgstr "响亮的失败比静默失败或掩盖错误更好。"
+msgstr "明确的失败比静默失败或掩盖错误更好。"
 
 #. type: Bullet: '- '
 #: ../src/en/internals/001-yii-values.md

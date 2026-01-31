@@ -156,7 +156,7 @@ msgstr "虽然它们没有解决 Yii 2 的重大问题，但它们有助于避�
 #: ../src/en/internals/009-design-decisions.md
 #, no-wrap
 msgid "Adopt SemVer"
-msgstr "采用语义化版本"
+msgstr "采用 SemVer"
 
 #. type: Plain text
 #: ../src/en/internals/009-design-decisions.md
@@ -171,7 +171,7 @@ msgstr "它不是标准的"
 #. type: Bullet: '- '
 #: ../src/en/internals/009-design-decisions.md
 msgid "Composer relies on SemVer"
-msgstr "Composer 依赖于语义化版本"
+msgstr "Composer 依赖于 SemVer"
 
 #. type: Bullet: '- '
 #: ../src/en/internals/009-design-decisions.md

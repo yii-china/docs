@@ -13,7 +13,7 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ### PSR-3 日志记录器
 
-实现为[不依赖于框架的独立包](https://github.com/yiisoft/log)。
+实现为 [不依赖于框架的独立包](https://github.com/yiisoft/log)。
 
 - [x] 框架包应仅依赖于接口。
 - [x] 将驱动程序拆分为包。
@@ -32,7 +32,7 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ### PSR-11 容器
 
-实现为[不依赖于框架的独立包](https://github.com/yiisoft/di)。
+实现为 [不依赖于框架的独立包](https://github.com/yiisoft/di)。
 
 - [x] 框架包不应直接使用容器。应该能够手动实例化所有内容。
 - [x] 完成重构。
@@ -52,9 +52,9 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ### PSR-15 HTTP 处理器
 
-- [x] 将 HTTP 流程重写为 PSR-7 请求-响应 + 通过发射器格式化响应。
-- [x] 开箱即用地提供 SAPI 发射器。
-- [x] 使使用 RoadRunner 等替代发射器成为可能。
+- [x] 将 HTTP 流程重写为 PSR-7 请求-响应 + 通过 Emitter 进行格式化响应。
+- [x] 开箱即用地提供 SAPI Emitter。
+- [x] 支持使用 RoadRunner 等替代的 Emitter 实现。
 - [x] 支持中间件。
 - [x] 将过滤器实现为中间件：
   - [x] [速率限制](https://github.com/yiisoft/yii-web/issues/63)
@@ -64,7 +64,7 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ### PSR-16 简单缓存
 
-实现为[不依赖于框架的独立包](https://github.com/yiisoft/cache)。
+实现为 [不依赖于框架的独立包](https://github.com/yiisoft/cache)。
 
 - [x] 框架包应仅依赖于接口。
 - [x] 将驱动程序拆分为包。
@@ -81,17 +81,17 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ## 更严格的类型
 
-- [x] 确保到处使用类型提示。
+- [x] 确保在所有地方都使用类型提示。
 - [x] 确保类型尽可能明确。尽可能避免变化的类型。
 
 ## 单一应用程序模板
 
 - [x] 放弃 basic/advanced。
-- [x] 创建一个[开箱即用的单一应用程序模板](https://github.com/yiisoft/app)。
+- [x] 创建一个 [开箱即用的单一应用程序模板](https://github.com/yiisoft/app)。
 
 ## 路由器
 
-实现为[不依赖于框架的独立包](https://github.com/yiisoft/router)。
+实现为 [不依赖于框架的独立包](https://github.com/yiisoft/router)。
 
 - [x] 用于配置的 DSL。
 - [x] 能够路由到任何可调用对象。
@@ -129,7 +129,7 @@ PSR 合规性有助于可定制性、使用通用 PHP 库的能力以及实现�
 
 ## RBAC
 
-RBAC 实现为[独立于框架的包](https://github.com/yiisoft/rbac)。
+RBAC 实现为 [独立于框架的包](https://github.com/yiisoft/rbac)。
 
 - [x] 完成重构。
 - [x] 确保它遵循最佳实践。
@@ -137,7 +137,7 @@ RBAC 实现为[独立于框架的包](https://github.com/yiisoft/rbac)。
 
 ## 视图
 
-视图实现为[独立于框架的包](https://github.com/yiisoft/view)。
+视图实现为 [独立于框架的包](https://github.com/yiisoft/view)。
 
 - [x] 完成重构（[查看 issue](https://github.com/yiisoft/view/issues)）。
 - [x] 移植小部件。
@@ -146,7 +146,7 @@ RBAC 实现为[独立于框架的包](https://github.com/yiisoft/rbac)。
 
 ## 数据抽象和网格
 
-- [x] 完成[数据抽象](https://github.com/yiisoft/data)。
+- [x] 完成 [数据抽象](https://github.com/yiisoft/data)。
 - [x] 移植排序，使用数据抽象。应该是
   [yii-dataview](https://github.com/yiisoft/yii-dataview) 的一部分。
 - [x] 移植分页，使用数据抽象。应该是
@@ -158,7 +158,7 @@ RBAC 实现为[独立于框架的包](https://github.com/yiisoft/rbac)。
 
 ## 验证器
 
-- [x] 完成[主包](https://github.com/yiisoft/validator)重新设计
+- [x] 完成 [主包](https://github.com/yiisoft/validator) 重新设计
 - [x] 移植必要的验证器
 
 ## 调试工具栏
