@@ -17,7 +17,7 @@ Some examples:
 | yiisoft/db-mysql           | Yiisoft\Db\Mysql          |
 | yiisoft/friendly-exception | Yiisoft\FriendlyException |
 
-## References
+## 参考资料
 
 - [International forum
   discussion](https://forum.yiiframework.com/t/use-yiisoft-as-a-root-namespace-instead-of-yii-for-yii-3-packages/125734)

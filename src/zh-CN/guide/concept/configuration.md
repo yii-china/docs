@@ -1,4 +1,4 @@
-# Configuration
+# 配置
 
 There are many ways to configure your application. We will focus on concepts
 used in the [default project template](https://github.com/yiisoft/app).
@@ -114,7 +114,7 @@ providers-web.php
 routes.php
 ```
 
-### Container configuration
+### 容器配置
 
 The application consists of a set of services registered in a [dependency
 container](di-container.md). The config files that responsible for direct

@@ -20,7 +20,7 @@ presentation layer and supports features like layouts and partial
 views. Instead of using plain PHP templates, you can leverage [one of the
 template engines such as Twig](template-engines.md).
 
-## Installation
+## 安装
 
 For basic view functionality, you need the `yiisoft/view` package:
 

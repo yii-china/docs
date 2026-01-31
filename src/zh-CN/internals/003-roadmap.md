@@ -129,7 +129,7 @@ framework](https://github.com/yiisoft/router).
 - [x] Development command line tool (symlinks packages into usable
   application)
 
-## Console
+## 控制台
 
 - [x] Separate web and console application
 - [x] Possibly eliminate base application (still needed)
@@ -137,7 +137,7 @@ framework](https://github.com/yiisoft/router).
 - [x] Implementation may be one of the popular ones (using Symfony one)
 - [x] Ensure application can add commands via config
 
-## Documentation
+## 文档
 
 - [ ] Follow best practices.
 - [ ] Don't use the "MVC" term.
