@@ -1034,7 +1034,7 @@ export default {
                 nav: [
                     {text: '指南', link: '/zh-CN/guide/'},
                     {text: '实用手册', link: '/zh-CN/cookbook/'},
-                    {text: '内部机制', link: '/zh-CN/internals/'},
+                    {text: '内部文档', link: '/zh-CN/internals/'},
                     {text: '官网', link: 'https://www.yiiframework.com'}
                 ],
                 sidebar: {
@@ -1185,7 +1185,7 @@ export default {
                     ],
                     '/zh-CN/internals/': [
                         {
-                            text: '内部机制',
+                            text: '内部文档',
                             items: [
                                 {text: '包', link: '/zh-CN/internals/000-packages'},
                                 {text: 'Yii 价值观', link: '/zh-CN/internals/001-yii-values'},
@@ -1224,6 +1224,28 @@ export default {
                 },
                 outline: {
                     label: '本页内容'
+                },
+                lastUpdated: {
+                    text: '最后更新于'
+                },
+                search: {
+                    options: {
+                        translations: {
+                            button: {
+                                buttonText: '搜索',
+                                buttonAriaLabel: '搜索'
+                            },
+                            modal: {
+                                noResultsText: '无法找到相关结果',
+                                resetButtonTitle: '清除查询条件',
+                                footer: {
+                                    selectText: '选择',
+                                    navigateText: '切换',
+                                    closeText: '关闭'
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
